@@ -7,7 +7,9 @@
 	The target audience for this application would include, novice, intermediate, and expert gardeners in the United States of America.
 
 ###	Outline the content of the application
-https://github.com/Pinky515/savvycapstoneoutline.git
+Refer to Plativerse-Outline.pdf
+
+
 
 ###	Create and provide link to User Story Map in Mural
 https://app.mural.co/t/tichiniagadiacapstone3695/m/tichiniagadiacapstone3695/1693089838486/370b9775c7b4a9ca29509f04fb781f30447a8e2f?sender=uc23d3340809e2ee631950610
