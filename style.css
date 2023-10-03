@@ -32,7 +32,7 @@ img {
 #intro-h1, #welcome {
   color: #a64253ff;
   /* downloaded PlayfairDisplay font not working */
-  font-family: 'PlayfairDisplay-Regular', serif;
+  font-family: "Playfair Display";
   font-size: 3rem;
   margin-bottom: 0;
   margin-top: 0;
@@ -102,3 +102,16 @@ footer {
 Current Date and time based on location
 Current Location
  Navigation Legend */
+
+ /* media queries */
+ @media (min-width: 550px) {
+  nav > .fa-bars {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .hidden--mobile {
+    display: none;
+  }
+}
