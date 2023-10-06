@@ -1,5 +1,6 @@
 export default {
-  header: "My Home Page",
+  // username after header
+  header: "Welcome Home",
   view: "Home",
   weather: {}
 };

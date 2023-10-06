@@ -3,7 +3,7 @@ import * as store from "./store";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
 import axios from "axios";
-import * as utils from "./utils";
+// import * as utils from "./utils";
 
 const router = new Navigo("/");
 
@@ -69,18 +69,18 @@ router.hooks({
           });
         break;
       // Add a case for each view that needs data from an API
-      case "Pizza":
+      case "CareBook":
         // New Axios get request utilizing already made environment variable
         axios
-          .get(`https://URLHERE.COM`)
+          .get(`${process.env.PERENUAL_API_KEY}`)
           .then(response => {
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
             console.log("response", response);
-            store.Pizza.pizzas = response.data;
+            store.CareBook.CareBooks = response.data;
             done();
           })
           .catch(error => {
-            console.log("It puked", error);
+            console.log("Whoopsie", error);
             done();
           });
         break;
