@@ -2,8 +2,9 @@ import html from "html-literal";
 
 export default () => html`
   <footer>
-    <!-- legend -->
-    <nav></nav>
+    <nav>
+      <!-- legend -->
+    </nav>
     <p>Created by Tichinia Gadia</p>
   </footer>
 `;

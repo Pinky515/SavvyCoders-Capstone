@@ -6,4 +6,6 @@ export default state => html`
   <img src="docs/project-planning.md/LOGO OPTIONS/image-5.png" alt="Plantiverse Logo" />
  </div class = "intro">
  <h1 id="intro-h1">Plantiverse</h1>
- <h2>Growing Better Together</h2></div>`;
+ <h2>Growing Better Together</h2></div>
+ <!-- my name in the footer -->
+ `;

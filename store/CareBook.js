@@ -1,4 +1,6 @@
 export default {
-  header: userName + "'s Care Book",
-  view: "CareBook"
+  // username's instead of "My"
+  header: "My Care Book",
+  view: "CareBook",
+  CareBooks: {}
 };
