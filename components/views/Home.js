@@ -2,6 +2,12 @@ import html from "html-literal";
 
 export default state => html`
   <div id="home-pg">
+    <div id="logo">
+      <img
+        src="docs/project-planning.md/LOGO OPTIONS/image-5.png"
+        alt="Plantiverse Logo"
+      />
+    </div>
     <div class="welcome">
       <h1 id="welcome">Welcome Back</h1>
       <h2>

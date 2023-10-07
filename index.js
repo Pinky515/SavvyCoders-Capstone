@@ -72,7 +72,9 @@ router.hooks({
       case "CareBook":
         // New Axios get request utilizing already made environment variable
         axios
-          .get(`${process.env.PERENUAL_API_KEY}`)
+          .get(
+            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}`
+          )
           .then(response => {
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
             console.log("response", response);

@@ -1,4 +1,4 @@
 export default {
-  header: "",
+  header: "Let's Talk Plants",
   view: "Discussion"
 };
