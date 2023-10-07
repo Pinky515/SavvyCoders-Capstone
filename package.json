@@ -2,12 +2,14 @@
   "name": "savvy-starter",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "parcel-build": "parcel build index.html && cp _redirects ./dist/",
-    "serve": "parcel index.html"
+    "serve": "parcel index.html",
+    "app:watch": "nodemon --watch ./server -e js ./server/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tichinia Gadia",
   "license": "ISC",
   "devDependencies": {
     "buffer": "^6.0.3",
@@ -15,6 +17,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.3.1",
     "node": "^16.13.1",
+    "nodemon": "^3.0.1",
     "prettier": "1.19.1"
   },
   "dependencies": {

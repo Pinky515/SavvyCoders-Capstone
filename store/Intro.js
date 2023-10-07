@@ -1,4 +1,4 @@
 export default {
-  header: "",
+  header: "Plantiverse",
   view: "Intro"
 };
