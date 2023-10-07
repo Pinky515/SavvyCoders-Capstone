@@ -1,6 +1,0 @@
-![flower](image.png)
-![heart](image-1.png)
-![hearts](image-2.png)
-![together](image-3.png)
-![tree](image-4.png)
-![final](image-5.png)
