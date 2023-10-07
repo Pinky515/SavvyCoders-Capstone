@@ -1,12 +1,10 @@
 import html from "html-literal";
+import baseLogo from "../../utils/photos/base-logo.png";
 
 export default state => html`
   <div id="home-pg">
     <div id="logo">
-      <img
-        src="docs/project-planning.md/LOGO OPTIONS/image-5.png"
-        alt="Plantiverse Logo"
-      />
+      <img src="${baseLogo}" alt="Plantiverse Logo" />
     </div>
     <div class="welcome">
       <h1 id="welcome">Welcome Back</h1>
