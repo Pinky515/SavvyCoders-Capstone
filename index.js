@@ -2,7 +2,7 @@ import { Header, Nav, Main, Footer } from "./components";
 import * as store from "./store";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
-import axios from "axios";
+import axios, { Axios } from "axios";
 import * as utils from "./utils";
 
 const router = new Navigo("/");
@@ -61,6 +61,30 @@ router.hooks({
       store.Home.weather.feelsLike = kelvinToFahrenheit(response.data.main.feels_like);
       store.Home.weather.description = response.data.weather[0].main;
       */
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+        axios
+          .get(
+            `http://api.ipstack.com/check
+          ? IPSTACK_API_KEY
+          & fields = city
+          & fields = region
+          & fields = time_zone`
+          )
+          .then(response => {
+            // Create an object to be stored in the Home state from the response
+            store.Home.location = {
+              city: response.data.city,
+              state: response.data.region,
+              time_zone: response.data.time_zone
+            };
+            const userCity = store.Home.location.city;
+            const userState = store.Home.location.region;
+            console.log(`${(userCity, userState)}`);
             done();
           })
           .catch(err => {

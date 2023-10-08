@@ -1,5 +1,5 @@
 import html from "html-literal";
-import baseLogo from "../../utils/photos/base-logo.png";
+import baseLogo from "../../utils/index.js";
 
 export default state => html`
   <div id="home-pg">
@@ -33,7 +33,23 @@ export default state => html`
         return currentDateLocal;
       }};
       console.log(getTheDate());
-    </div>
-    <!-- Current Location -->
+    </div id="location">
+    <!-- Current Location | Changing location updates the weather and timezone for the selected location-->
+    ${function getLocation() {
+      if (navigator.geolocation) {
+        console.log(
+          `${(navigator.geolocation.getCurrentPosition(userCity),
+          navigator.geolocation.getCurrentPosition(userState))}`
+        );
+      } else {
+        console.log("Location Unavailable");
+      }
+    }
+
+    function userCity({location}) {
+      const userCity = ;
+      const longitude = position.coords.longitude;
+      const url = ``
+    }}
   </div>
 `;
