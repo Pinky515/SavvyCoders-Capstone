@@ -1,2 +1,2 @@
-export { default as baseLogo } from "../photos/Base-logo";
-export { default as fullLogo } from "../photos/Full-logo";
+export { default as baseLogo } from "./base-logo.png";
+export { default as fullLogo } from "./full-logo.png";

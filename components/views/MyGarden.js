@@ -7,7 +7,7 @@ export default state => html`
     <div id="addPlot">
       <!-- add new plot button (includes date planted) -->
     </div>
-    <div id="gardenLayout">
+    <div id="gardenLayout" style="height: 75vh;">
       <!-- diagram of garden's layout -->
       <!-- touching(mobile) or hovering(desktop) over plot brings pop up of plant date and projected maturity date -->
     </div>
