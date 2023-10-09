@@ -1,10 +1,10 @@
 import html from "html-literal";
-import baseLogo from "../../utils/index.js";
+import * as utils from "../../utils/index.js";
 
 export default state => html`
   <div id="home-pg">
     <div id="logo">
-      <img src="${baseLogo}" alt="Plantiverse Logo" />
+      <img ${utils.baseLogo} />
     </div>
     <div class="welcome">
       <h1 id="welcome">Welcome Back</h1>
@@ -33,23 +33,9 @@ export default state => html`
         return currentDateLocal;
       }};
       console.log(getTheDate());
-    </div id="location">
-    <!-- Current Location | Changing location updates the weather and timezone for the selected location-->
-    ${function getLocation() {
-      if (navigator.geolocation) {
-        console.log(
-          `${(navigator.geolocation.getCurrentPosition(userCity),
-          navigator.geolocation.getCurrentPosition(userState))}`
-        );
-      } else {
-        console.log("Location Unavailable");
-      }
-    }
-
-    function userCity({location}) {
-      const userCity = ;
-      const longitude = position.coords.longitude;
-      const url = ``
-    }}
+    </div>
+    <div id="location">
+      <!-- Current Location | Changing location updates the weather and timezone for the selected location-->
+    </div>
   </div>
 `;

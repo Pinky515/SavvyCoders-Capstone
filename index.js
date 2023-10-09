@@ -3,7 +3,7 @@ import * as store from "./store";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
 import axios, { Axios } from "axios";
-import * as utils from "./utils";
+// import * as utils from "./utils";
 
 const router = new Navigo("/");
 
