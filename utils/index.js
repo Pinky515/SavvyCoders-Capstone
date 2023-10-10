@@ -1,1 +1,1 @@
-export { baseLogo, fullLogo } from "./photos/index.js";
+export { default as utils } from "./photos/index.js";

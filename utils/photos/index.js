@@ -1,2 +1,3 @@
-export { default as baseLogo } from "./base-logo.png";
-export { default as fullLogo } from "./full-logo.png";
+export { default as baseLogo } from "./baseLogo.png";
+export { default as fullLogo } from "./fullLogo.png";
+export { default as wiltedPlant } from "./wilted-plant.jpg";

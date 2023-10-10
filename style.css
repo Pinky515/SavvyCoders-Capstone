@@ -76,6 +76,12 @@ footer {
   letter-spacing: 0.1rem;
 }
 
+nav > ul {
+list-style-type: none;
+display: flex;
+justify-content: space-evenly;
+}
+
 /* Home Page */
 
 /* Top Logo */

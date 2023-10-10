@@ -4,6 +4,5 @@ export default [
   { title: "CareBook", text: "My Care Books" },
   { title: "Discussion", text: "Let's Talk Plants" },
   { title: "Schedule", text: "My Schedule" },
-  { title: "MyGarden", text: "My Garden" },
-  { title: "Viewnotfound", text: "Viewnotfound" }
+  { title: "MyGarden", text: "My Garden" }
 ];
