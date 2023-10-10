@@ -7,7 +7,7 @@ import axios, { Axios } from "axios";
 
 const router = new Navigo("/");
 
-function render(state = store.Home) {
+function render(state = store.Intro) {
   document.querySelector("#root").innerHTML = `
   ${Header(state)}
   ${Nav(store.Links)}

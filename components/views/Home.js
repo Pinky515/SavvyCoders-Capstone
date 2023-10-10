@@ -1,10 +1,10 @@
 import html from "html-literal";
-import * as utils from "../../utils/index.js";
+import { baseLogo } from "../../utils/photos/baseLogo.png";
 
 export default state => html`
   <div id="home-pg">
     <div id="logo">
-      <img ${utils.baseLogo} />
+      <img src="${baseLogo}" alt="Plantiverse Logo" />
     </div>
     <div class="welcome">
       <h1 id="welcome">Welcome Back</h1>
