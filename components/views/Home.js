@@ -36,20 +36,19 @@ export default state => html`
     </div>
     <div id="location">
       <!-- Current Location -->
-  <!-- fetch("https://extreme-ip-lookup.com/json/")
+    </div>
+    <form class="newLocation">
+      <!-- Changing location updates the weather -->
+      <input type="text" id="newLocation" name="newLocation" size="15" />
+    </form>
+  </div>
+`;
+// location code. how do i make sure this is in the correct div?
+fetch("https://extreme-ip-lookup.com/json/")
   .then(res => res.json())
   .then(response => {
     console.log(`${response.city}, ${response.state}, ${response.country}`);
   })
   .catch((data, status) => {
     console.log("Request failed");
-  }); -->
-    </div>
-    <form class = "newLocation">
-          <!-- Changing location updates the weather -->
-      <input type="text" id="newLocation" name="newLocation" size="15"/>
-    </form>
-  </div>
-`;
-
-
+  });

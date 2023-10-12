@@ -38,3 +38,5 @@ app.use(dateLocal);
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+
+// test to see if server folder is being pushed to github
