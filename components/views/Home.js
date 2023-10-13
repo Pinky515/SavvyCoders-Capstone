@@ -23,16 +23,18 @@ export default state => html`
 
     <!-- Current Date and time based on location -->
     <div id="date">
-      ${function getTheDate() {
-        const dateLocal = new Date();
-        const day = dateLocal.getDate();
-        const month = dateLocal.getMonth();
-        const year = dateLocal.getFullYear();
+      <script>
+        ${function getTheDate() {
+          const dateLocal = new Date();
+          const day = dateLocal.getDate();
+          const month = dateLocal.getMonth();
+          const year = dateLocal.getFullYear();
 
-        let currentDateLocal = `${month + 1} ${day}, ${year}`;
-        return currentDateLocal;
-      }};
-      console.log(getTheDate());
+          let currentDateLocal = `${month + 1} ${day}, ${year}`;
+          return currentDateLocal;
+        }};
+        console.log(getTheDate());
+      </script>
     </div>
     <div id="location">
       <!-- Current Location -->
@@ -50,5 +52,5 @@ fetch("https://extreme-ip-lookup.com/json/")
     console.log(`${response.city}, ${response.state}, ${response.country}`);
   })
   .catch((data, status) => {
-    console.log("Request failed");
+    console.log("Sorry. We can't find you.");
   });
