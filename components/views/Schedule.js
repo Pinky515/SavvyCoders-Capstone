@@ -9,17 +9,14 @@ export default state => html`
 
     <!-- table of upcoming water/fertilization needs -->
     <!-- table should automatically sort in ascending order by date and scroll if larger than allotted height -->
-    <table>
+    <table id="Schedule">
       <thead>
-        <tr>
-          <th colspan="6"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
+        <tr colspan="10">
           <th>Water</th>
           <th>Fertilizer</th>
         </tr>
+      </thead>
+      <tbody>
         <tr>
           <td></td>
           <td></td>
