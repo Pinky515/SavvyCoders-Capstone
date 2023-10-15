@@ -1,10 +1,28 @@
 // express framework
 import express from "express";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
 const app = express();
 
 dotenv.config();
+
+// Connect application to database in MongoDB
+mongoose.connect(process.env.MONGODB, {
+  // removes clutter in console from deprecation warnings
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// initiate connection
+const db = mongoose.connection;
+
+// error message for bad connection
+db.on("error", console.error.bind(console, "Unable to Connect:"));
+db.once(
+  "open",
+  console.log.bind(console, "Connection to MongoDB has openned, successfully!")
+);
 
 const PORT = process.env.PORT || 4040;
 
@@ -35,6 +53,14 @@ const cors = (req, res, next) => {
 app.use(cors);
 app.use(express.json());
 app.use(dateLocal);
+
+// Handle the request with HTTP GET method from http://localhost:4040/status
+app.get("/status", (request, response) => {
+  // Create the headers for response by default 200
+  // Create the response body
+  // End and return the response
+  response.send(JSON.stringify({ message: "Service is healthy" }));
+});
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
