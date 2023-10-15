@@ -20,6 +20,14 @@ html {
   width: 90%;
 }
 
+#not-found {
+  width: 95dvw
+}
+
+#not-found img {
+  width: 35dvw;
+}
+
 img {
   /* margin-top: %; */
   width: 60%;
@@ -103,17 +111,34 @@ justify-content: space-evenly;
   margin-right: auto;
 }
 
-#Schedule {
+#schedule, #Schedule {
 /* border: solid 2px; */
 /* padding: 3px; */
-margin-left: auto;
-margin-right: auto;
+margin: 0 auto;
+width: 60%;
 }
 
-#Schedule th {
+.addButton {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#inputs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+table {
+border-collapse: collapse;
+width: 100%
+}
+
+th, td {
   border: solid 2px;
   padding: 5px;
   background-color: #a64253ff;
+  text-align: left;
 }
 
 /* Current Weather Img dependent upon the weather
@@ -133,4 +158,16 @@ Current Location
   .hidden--mobile {
     display: none;
   }
+  #not-found {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75dvw;
 }
+#not-found img {
+  margin: 60px auto 20px;
+}
+}
+
+
