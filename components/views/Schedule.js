@@ -9,7 +9,7 @@ export default state => html`
     </button>
     <!-- calendar with visual representation of water/fertilization schedule -->
     <div class="inputs">
-      <label for="Plant">Plant</label>
+      <!-- <label for="Plant">Plant</label> -->
       <input
         type="text"
         id="Plant"
@@ -17,7 +17,7 @@ export default state => html`
         name="Plant"
         placeholder="Plant Name"
       />
-      <label for="waterFrequency">Water</label>
+      <!-- <label for="waterFrequency">Water</label> -->
       <input
         type="date"
         id="waterFrequency"
@@ -25,7 +25,7 @@ export default state => html`
         name="waterFrequency"
         placeholder="Next time to water"
       />
-      <label for="fertilizationFrequency">Water</label>
+      <!-- <label for="fertilizationFrequency">Water</label> -->
       <input
         type="date"
         id="fertilizationFrequency"
@@ -39,6 +39,8 @@ export default state => html`
       <!-- table should automatically sort in ascending order by date and scroll if larger than allotted height -->
     </table>
 
-    ${Schedule}
+    <script>
+      ${Schedule};
+    </script>
   </div>
 `;

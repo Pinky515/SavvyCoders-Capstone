@@ -3,6 +3,9 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+// import custom carebooks route
+import CareBook from "./routers/carebooks.js";
+
 const app = express();
 
 dotenv.config();
@@ -61,6 +64,8 @@ app.get("/status", (request, response) => {
   // End and return the response
   response.send(JSON.stringify({ message: "Service is healthy" }));
 });
+
+app.use("/carebooks", CareBook);
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

@@ -121,6 +121,8 @@ width: 60%;
 .addButton {
   padding: 10px;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 #inputs {
