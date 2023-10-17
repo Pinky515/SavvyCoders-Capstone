@@ -13,13 +13,13 @@ export default state => html`
     />
     <button>Search</button>
   </div>
-</form>
   <div id="saveGuideBook">
     <!-- save button -->
     <button class="saveGuideBook" onclick="()">
     <i class="fa-regular fa-floppy-disk" style="color: #279af1ff;"></i>
       </button>
   </div>
+</form>
   <div id="storedCareBooks">
     <!-- flip through care instructions -->
   </div>
