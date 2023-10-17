@@ -4,7 +4,7 @@ import CareBook from "../models/Carebook.js";
 
 const router = Router();
 
-// Create pizza route
+// Create route
 router.post("/", async (request, response) => {
   try {
     const newCareBook = new CareBook(request.body);

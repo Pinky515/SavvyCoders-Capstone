@@ -36,7 +36,7 @@ const careBookSchema = new mongoose.Schema({
   from: 1,
   last_page: 405,
   total: 10104
- });
+});
 
 // convert Schema method to model method
 const CareBook = mongoose.model("CareBook", careBookSchema);
