@@ -128,7 +128,7 @@ router.hooks({
         // New Axios get request utilizing already made environment variable
         axios
           .get(
-            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=monstera`
+            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=`
           )
           .then(response => {
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
@@ -147,7 +147,7 @@ router.hooks({
           .then(response => {
             // store response to state
             console.log("response", response);
-            store.DiscussionPost.discussionposts = response.data;
+            store.Discussion.DiscussionPosts = response.data;
             done();
           })
           .catch(error => {
