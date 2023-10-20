@@ -1,5 +1,5 @@
 import html from "html-literal";
-import { baseLogo } from "../../utils/photos/baseLogo.png";
+import baseLogo from "../../utils/photos/baseLogo.png";
 
 export default state => html`
   <div id="home-pg">

@@ -10,19 +10,47 @@ const router = new Navigo("/");
 function render(state = store.Intro) {
   document.querySelector("#root").innerHTML = `
   ${Header(state)}
-  ${Nav(store.Links)}
   ${Main(state)}
-  ${Footer()}
+  ${Footer(store.Links)}
   `;
-  afterRender();
+  afterRender(state);
   router.updatePageLinks();
 }
 
-function afterRender() {
+function afterRender(state) {
   // add menu toggle to bars icon in nav bar
   document.querySelector(".fa-bars").addEventListener("click", () => {
     document.querySelector("nav > ul").classList.toggle("hidden--mobile");
   });
+
+  if (state.view === "Discussion") {
+    // event handler for new post submit button
+    document.querySelector("form").addEventListener("submit", event => {
+      event.preventDefault();
+
+      // get form element
+      const allPosts = event.target.elements;
+      console.log("Retrieved all Posts", allPosts);
+
+      const requestData = {
+        creator: allPosts.creator.value,
+        title: allPosts.title.value,
+        post: allPosts.post.value
+      };
+      console.log("request Body", requestData);
+
+      axios
+        .post(`${process.env.DISCUSSION_POST_API}/discussionposts`, requestData)
+        .then(response => {
+          // push new post to forum allPosts
+          store.Discussion.allPosts.push(response.data);
+          router.navigate("/Discussion");
+        })
+        .catch(error => {
+          console.log("Whoopsie", error);
+        });
+    });
+  }
 }
 
 router.hooks({
@@ -73,7 +101,8 @@ router.hooks({
           ? IPSTACK_API_KEY
           & fields = city
           & fields = region
-          & fields = time_zone`
+          & fields = time_zone
+          & output = json`
           )
           .then(response => {
             // Create an object to be stored in the Home state from the response
@@ -84,7 +113,9 @@ router.hooks({
             };
             const userCity = store.Home.location.city;
             const userState = store.Home.location.region;
+            const userTimeZone = store.Home.time_zone.current_time;
             console.log(`${(userCity, userState)}`);
+            console.log(`${userTimeZone}`);
             done();
           })
           .catch(err => {
@@ -103,6 +134,20 @@ router.hooks({
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
             console.log("response", response);
             store.CareBook.CareBooks = response.data;
+            done();
+          })
+          .catch(error => {
+            console.log("Whoopsie", error);
+            done();
+          });
+        break;
+      case "DiscussionPost":
+        axios
+          .get(`${process.env.DISCUSSION_POST_API}/discussionposts`)
+          .then(response => {
+            // store response to state
+            console.log("response", response);
+            store.DiscussionPost.discussionposts = response.data;
             done();
           })
           .catch(error => {

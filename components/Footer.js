@@ -1,7 +1,6 @@
 import html from "html-literal";
-import links from "../store/Links";
 
-export default () => html`
+export default links => html`
   <footer>
     <nav>
       <!-- legend -->
