@@ -5,32 +5,82 @@ const careBookSchema = new mongoose.Schema({
   // alter data to MY OWN MODEL
   data: [
     {
-      id: Number,
-      common_name: String,
-      scientific_name: [String],
-      other_name: [String],
-      cycle: String,
-      watering: String,
-      sunlight: [],
+      id: {
+        type: Number
+      },
+      common_name: {
+        type: String,
+        required: true
+      },
+      scientific_name: {
+        type: [String]
+      },
+      other_name: {
+        type: [String]
+      },
+      cycle: {
+        type: String,
+        required: true
+      },
+      watering: {
+        type: String,
+        required: true
+      },
+      sunlight: {
+        type: [],
+        required: true
+      },
       default_image: {
-        image_id: Number,
-        license: Number,
-        license_name: String,
-        license_url: String,
-        original_url: String,
-        regular_url: String,
-        medium_url: String,
-        small_url: String,
-        thumbnail: String
+        type: {
+          image_id: {
+            type: Number
+          },
+          license: {
+            type: Number
+          },
+          license_name: {
+            type: String
+          },
+          license_url: {
+            type: String
+          },
+          original_url: {
+            type: String
+          },
+          regular_url: {
+            type: String
+          },
+          medium_url: {
+            type: String
+          },
+          small_url: {
+            type: String
+          },
+          thumbnail: {
+            type: String
+          }
+        }
       }
     }
   ],
-  to: Number,
-  per_page: Number,
-  current_page: Number,
-  from: Number,
-  last_page: Number,
-  total: Number
+  to: {
+    type: Number
+  },
+  per_page: {
+    type: Number
+  },
+  current_page: {
+    type: Number
+  },
+  from: {
+    type: Number
+  },
+  last_page: {
+    type: Number
+  },
+  total: {
+    type: Number
+  }
 });
 
 // convert Schema method to model method
