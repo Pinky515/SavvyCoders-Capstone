@@ -149,6 +149,13 @@ Current Date and time based on location
 Current Location
  Navigation Legend */
 
+
+ /* Discussion Forum */
+#allPosts {
+  background-color: rgb(190, 114, 42);
+  border: 2px solid #a64253ff;
+}
+
  /* media queries */
  @media (min-width: 550px) {
   nav > .fa-bars {

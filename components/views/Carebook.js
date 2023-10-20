@@ -17,7 +17,6 @@ export default state => html`
 
     <button>Search</button>
   </div>
-</form>
   <div id="saveGuideBook">
     <!-- save button -->
     <button class="saveGuideBook" onclick="()">
@@ -29,6 +28,7 @@ export default state => html`
     <!-- add button -->
 
   </div>
+</form>
   <div id="storedCareBooks">
     <!-- flip through care instructions -->
   </div>

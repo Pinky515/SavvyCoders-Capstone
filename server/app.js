@@ -3,8 +3,9 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-// import custom carebooks route
-import CareBook from "./routers/carebooks.js";
+// import custom route
+import CareBook from "./routes/carebooks.js";
+import DiscussionPost from "./routes/discussion.js";
 
 const app = express();
 
@@ -65,7 +66,15 @@ app.get("/status", (request, response) => {
   response.send(JSON.stringify({ message: "Service is healthy" }));
 });
 
+app.get("/carebooks", (request, response) => {
+  // Create the headers for response by default 200
+  // Create the response body
+  // End and return the response
+  response.send(JSON.stringify({ message: "Service is healthy" }));
+});
+
 app.use("/carebooks", CareBook);
+app.use("/discussionposts", DiscussionPost);
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
