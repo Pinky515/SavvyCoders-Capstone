@@ -40,13 +40,13 @@ export default state => html`
       <table id="allPosts">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Creator</th>
+            <th id="title">Title</th>
+            <th id="content">Content</th>
+            <th id="creator">Creator</th>
           </tr>
         </thead>
         <tbody>
-          ${state.postList
+          ${state.discussionForumPage.postList
             .map(post => {
               return `<tr>
           <td>${post.title}</td>
