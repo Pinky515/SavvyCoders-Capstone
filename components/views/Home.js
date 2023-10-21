@@ -42,15 +42,17 @@ export default state => html`
     <form class="newLocation">
       <!-- Changing location updates the weather -->
       <input type="text" id="newLocation" name="newLocation" size="15" />
+      <input type="submit" value="Check the Weather" />
+      <!-- need to search location to pull weather into -->
     </form>
   </div>
 `;
 // location code. how do i make sure this is in the correct div?
-fetch("https://extreme-ip-lookup.com/json/")
-  .then(res => res.json())
-  .then(response => {
-    console.log(`${response.city}, ${response.state}, ${response.country}`);
-  })
-  .catch((data, status) => {
-    console.log("Sorry. We can't find you.");
-  });
+// fetch("https://extreme-ip-lookup.com/json/")
+//   .then(res => res.json())
+//   .then(response => {
+//     console.log(`${response.city}, ${response.state}, ${response.country}`);
+//   })
+//   .catch((data, status) => {
+//     console.log("Sorry. We can't find you.");
+//   });

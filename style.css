@@ -10,14 +10,24 @@ html {
 
 
 /* Intro Page */
-
-.intro-img {
-  align-content: center;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 0;
+div#intro-pg {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* padding: 25px; */
+  /* margin: 25px; */
+}
+.intro-img {
+  place-content: center;
   width: 90%;
+  margin: 0 auto;
+  padding: 60px 0;
+  display: flex;
+}
+
+img#fullLogo {
+  padding: 0;
+  box-shadow: 0 0 10px 10px white;
 }
 
 #not-found {
@@ -82,6 +92,11 @@ footer {
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
   letter-spacing: 0.1rem;
+  /* margin */
+}
+
+nav {
+  margin-bottom: 35px;
 }
 
 nav > ul {
@@ -93,22 +108,24 @@ justify-content: space-evenly;
 /* Home Page */
 
 /* Top Logo */
-#logo {
-  width: 40%;
-  margin-left: auto;
-  margin-right: auto;
+#logo > img {
   border-radius: 70px;
-  padding: ;
+  width: 35%;
+  margin: 25px auto 15px;
+  padding: 0;
+  box-shadow: 0 0 10px 10px #fff;
 }
 /* Welcome Home Greeting with username*/
 
 
 .welcome {
-  background-color: hsla(240, 100%, 98%, 0.75);
+  background-color: #f5f5ffbf;
   border-radius: 10px 40px;
-  width: 80%;
+  width: 70%;
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 0 0 10px 10px #fff;
 }
 
 #schedule, #Schedule {
@@ -167,6 +184,14 @@ Current Location
   .hidden--mobile {
     display: none;
   }
+
+  .intro-img {
+    place-content: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+}
   #not-found {
     display: flex;
     flex-direction: column;

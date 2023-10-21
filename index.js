@@ -98,7 +98,7 @@ router.hooks({
         axios
           .get(
             `http://api.ipstack.com/check
-          ? IPSTACK_API_KEY
+        ? access_key = IPSTACK_API_KEY
           & fields = city
           & fields = region
           & fields = time_zone
@@ -108,12 +108,12 @@ router.hooks({
             // Create an object to be stored in the Home state from the response
             store.Home.location = {
               city: response.data.city,
-              state: response.data.region,
-              time_zone: response.data.time_zone
+              state: response.data.region_name,
+              time_zone: response.data.time_zone.code //browser not seeing code, but it should be there
             };
             const userCity = store.Home.location.city;
             const userState = store.Home.location.region;
-            const userTimeZone = store.Home.time_zone.current_time;
+            const userTimeZone = store.Home.location.time_zone;
             console.log(`${(userCity, userState)}`);
             console.log(`${userTimeZone}`);
             done();
