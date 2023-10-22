@@ -68,64 +68,58 @@ router.hooks({
     switch (view) {
       // New Case for the Home View
       case "Home":
-        axios
-          .get(
-            `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
-          )
-          .then(response => {
-            // Create an object to be stored in the Home state from the response
-            store.Home.location = {
-              city: response.data.city,
-              state: response.data.region,
-              country: response.data.country
-            };
+        async (request, response) => {
+          response = await axios
+            .get(
+              `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
+            )
+            .then(response => {
+              // Create an object to be stored in the Home state from the response
+              store.Home.location = {
+                city: response.data.city,
+                state: response.data.region,
+                country: response.data.country
+              };
 
-            done();
-          })
-          .catch(err => {
-            console.log(err);
-            done();
-          });
-        userCity = store.Home.location.city;
-        userState = store.Home.location.region;
-        userCountry = store.Home.location.country;
-        console.log(`${(userCity, userState, userCountry)}`);
-        axios
-          // Get request to retrieve the current weather data using the API key and providing a city name
-          .get(
-            `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}${userState}${userCountry}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
-          )
-          .then(response => {
-            // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
-            const kelvinToFahrenheit = kelvinTemp =>
-              Math.round((kelvinTemp - 273.15) * (9 / 5) + 32);
+              done();
+            })
+            .catch(err => {
+              console.log(err);
+              done();
+            });
+          userCity = store.Home.location.city;
+          userState = store.Home.location.region;
+          userCountry = store.Home.location.country;
+          console.log(`${(userCity, userState, userCountry)}`);
+          axios
+            // Get request to retrieve the current weather data using the API key and providing a city name
+            .get(
+              `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}${userState}${userCountry}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
+            )
+            .then(response => {
+              // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
+              const kelvinToFahrenheit = kelvinTemp =>
+                Math.round((kelvinTemp - 273.15) * (9 / 5) + 32);
 
-            // Create an object to be stored in the Home state from the response
-            store.Home.weather = {
-              city: response.data.name,
-              state: response.data.region_name,
-              country: response.data.country_code,
-              temp: kelvinToFahrenheit(response.data.main.temp),
-              feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
-              description: response.data.weather[0].main
-            };
-            // const userCity = store.Home.location.city;
-            // const userState = store.Home.location.region;
-            // const userCountry = store.Home.location.country;
-
-            // An alternate method would be to store the values independently
-            /*
-      store.Home.weather.city = response.data.name;
-      store.Home.weather.temp = kelvinToFahrenheit(response.data.main.temp);
-      store.Home.weather.feelsLike = kelvinToFahrenheit(response.data.main.feels_like);
-      store.Home.weather.description = response.data.weather[0].main;
-      */
-            done();
-          })
-          .catch(err => {
-            console.log(err);
-            done();
-          });
+              // Create an object to be stored in the Home state from the response
+              store.Home.weather = {
+                city: response.data.name,
+                state: response.data.region_name,
+                country: response.data.country_code,
+                temp: kelvinToFahrenheit(response.data.main.temp),
+                feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
+                description: response.data.weather[0].main
+              };
+              // const userCity = store.Home.location.city;
+              // const userState = store.Home.location.region;
+              // const userCountry = store.Home.location.country;
+              done();
+            })
+            .catch(err => {
+              console.log(err);
+              done();
+            });
+        };
 
         break;
       // Add a case for each view that needs data from an API
