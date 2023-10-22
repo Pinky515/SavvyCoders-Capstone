@@ -68,7 +68,7 @@ router.hooks({
     switch (view) {
       // New Case for the Home View
       case "Home":
-        async (request, response) => {
+        async function Home(request, response) => {
           try {
             response = await axios.get(
               `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
@@ -116,7 +116,8 @@ router.hooks({
               console.log(err);
               done();
             });
-        };
+        }
+        Home();
         break;
       // Add a case for each view that needs data from an API
       case "CareBook":
