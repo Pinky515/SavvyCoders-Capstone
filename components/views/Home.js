@@ -3,7 +3,7 @@ import baseLogo from "../../utils/photos/baseLogo.png";
 
 export default state => html`
   <div id="home-pg">
-    <div id="logo">
+    <div id="logo-heart">
       <img src="${baseLogo}" alt="Plantiverse Logo" />
     </div>
     <div class="welcome">
