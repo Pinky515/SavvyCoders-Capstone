@@ -69,24 +69,21 @@ router.hooks({
       // New Case for the Home View
       case "Home":
         async (request, response) => {
-          response = await axios
-            .get(
+          try {
+            response = await axios.get(
               `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
-            )
-            .then(response => {
-              // Create an object to be stored in the Home state from the response
-              store.Home.location = {
-                city: response.data.city,
-                state: response.data.region,
-                country: response.data.country
-              };
+            );
 
-              done();
-            })
-            .catch(err => {
-              console.log(err);
-              done();
-            });
+            // Create an object to be stored in the Home state from the response
+            store.Home.location = {
+              city: response.data.city,
+              state: response.data.region,
+              country: response.data.country
+            };
+          } catch (err) {
+            console.log(err);
+            done();
+          }
           userCity = store.Home.location.city;
           userState = store.Home.location.region;
           userCountry = store.Home.location.country;
@@ -120,7 +117,6 @@ router.hooks({
               done();
             });
         };
-
         break;
       // Add a case for each view that needs data from an API
       case "CareBook":
