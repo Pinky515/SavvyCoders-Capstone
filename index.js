@@ -60,14 +60,40 @@ router.hooks({
       params && params.data && params.data.view
         ? capitalize(params.data.view)
         : "Home";
+    // create variables for user location
+    let userCity;
+    let userState;
+    let userCountry;
     // Add a switch case statement to handle multiple routes
     switch (view) {
       // New Case for the Home View
       case "Home":
         axios
+          .get(
+            `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
+          )
+          .then(response => {
+            // Create an object to be stored in the Home state from the response
+            store.Home.location = {
+              city: response.data.city,
+              state: response.data.region,
+              country: response.data.country
+            };
+
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+        userCity = store.Home.location.city;
+        userState = store.Home.location.region;
+        userCountry = store.Home.location.country;
+        console.log(`${(userCity, userState, userCountry)}`);
+        axios
           // Get request to retrieve the current weather data using the API key and providing a city name
           .get(
-            `https://api.openweathermap.org/data/2.5/weather?appid=${process.env.OPEN_WEATHER_MAP_API_KEY}&q=st%20louis`
+            `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}${userState}${userCountry}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
           )
           .then(response => {
             // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
@@ -77,10 +103,15 @@ router.hooks({
             // Create an object to be stored in the Home state from the response
             store.Home.weather = {
               city: response.data.name,
+              state: response.data.region_name,
+              country: response.data.country_code,
               temp: kelvinToFahrenheit(response.data.main.temp),
               feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
               description: response.data.weather[0].main
             };
+            // const userCity = store.Home.location.city;
+            // const userState = store.Home.location.region;
+            // const userCountry = store.Home.location.country;
 
             // An alternate method would be to store the values independently
             /*
@@ -95,40 +126,14 @@ router.hooks({
             console.log(err);
             done();
           });
-        axios
-          .get(
-            `http://api.ipstack.com/check
-        ? access_key = IPSTACK_API_KEY
-          & fields = city
-          & fields = region
-          & fields = time_zone
-          & output = json`
-          )
-          .then(response => {
-            // Create an object to be stored in the Home state from the response
-            store.Home.location = {
-              city: response.data.city,
-              state: response.data.region_name,
-              time_zone: response.data.time_zone.code //browser not seeing code, but it should be there
-            };
-            const userCity = store.Home.location.city;
-            const userState = store.Home.location.region;
-            const userTimeZone = store.Home.location.time_zone;
-            console.log(`${(userCity, userState)}`);
-            console.log(`${userTimeZone}`);
-            done();
-          })
-          .catch(err => {
-            console.log(err);
-            done();
-          });
+
         break;
       // Add a case for each view that needs data from an API
       case "CareBook":
         // New Axios get request utilizing already made environment variable
         axios
           .get(
-            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=`
+            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=` //need to search for plants through an input
           )
           .then(response => {
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
