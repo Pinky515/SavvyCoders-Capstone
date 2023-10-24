@@ -25,7 +25,7 @@ function afterRender(state) {
 
   if (state.view === "Discussion") {
     // event handler for new post submit button
-    document.querySelector("form").addEventListener("submit", event => {
+    document.querySelector("form").addEventListener("submit", (event) => {
       event.preventDefault();
 
       // get form element
@@ -35,18 +35,18 @@ function afterRender(state) {
       const requestData = {
         creator: allPosts.creator.value,
         title: allPosts.title.value,
-        post: allPosts.post.value
+        post: allPosts.post.value,
       };
       console.log("request Body", requestData);
 
       axios
         .post(`${process.env.DISCUSSION_POST_API}/discussionposts`, requestData)
-        .then(response => {
+        .then((response) => {
           // push new post to forum allPosts
           store.Discussion.allPosts.push(response.data);
           router.navigate("/Discussion");
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("Whoopsie", error);
         });
     });
@@ -54,70 +54,65 @@ function afterRender(state) {
 }
 
 router.hooks({
-  before: (done, params) => {
+  before: async (done, params) => {
     // We need to know what view we are on to know what data to fetch
     const view =
       params && params.data && params.data.view
         ? capitalize(params.data.view)
         : "Home";
     // create variables for user location
-    let userCity;
-    let userState;
-    let userCountry;
+
+    let location;
     // Add a switch case statement to handle multiple routes
     switch (view) {
       // New Case for the Home View
       case "Home":
-        async function Home(request, response) => {
-          try {
-            response = await axios.get(
-              `extreme-ip-lookup.com/json/?callback=getIP&key=${process.env.EX_IP_API_KEY}`
-            );
+        try {
+          const response = await axios.get(
+            `https://extreme-ip-lookup.com/json/?key=${process.env.EX_IP_API_KEY}`
+          );
+          console.log(response);
+          // Create an object to be stored in the Home state from the response
+          store.Home.location = {
+            city: response.data.city,
+            state: response.data.region,
+            country: response.data.country,
+            lat: response.data.lat,
+            long: response.data.lon,
+          };
+          console.log(store.Home.location);
+        } catch (err) {
+          console.log(err);
+          done();
+        }
+        location = store.Home.location;
+        axios
+          // Get request to retrieve the current weather data using the API key and providing a city name
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.long}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
+          )
+          .then((response) => {
+            // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
+            const kelvinToFahrenheit = (kelvinTemp) =>
+              Math.round((kelvinTemp - 273.15) * (9 / 5) + 32);
 
             // Create an object to be stored in the Home state from the response
-            store.Home.location = {
-              city: response.data.city,
-              state: response.data.region,
-              country: response.data.country
+            store.Home.weather = {
+              city: response.data.name,
+              state: response.data.region_name,
+              country: response.data.country_code,
+              temp: kelvinToFahrenheit(response.data.main.temp),
+              feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
+              description: response.data.weather[0].main,
             };
-          } catch (err) {
+
+            done();
+          })
+          .catch((err) => {
             console.log(err);
             done();
-          }
-          userCity = store.Home.location.city;
-          userState = store.Home.location.region;
-          userCountry = store.Home.location.country;
-          console.log(`${(userCity, userState, userCountry)}`);
-          axios
-            // Get request to retrieve the current weather data using the API key and providing a city name
-            .get(
-              `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}${userState}${userCountry}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
-            )
-            .then(response => {
-              // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
-              const kelvinToFahrenheit = kelvinTemp =>
-                Math.round((kelvinTemp - 273.15) * (9 / 5) + 32);
+          });
 
-              // Create an object to be stored in the Home state from the response
-              store.Home.weather = {
-                city: response.data.name,
-                state: response.data.region_name,
-                country: response.data.country_code,
-                temp: kelvinToFahrenheit(response.data.main.temp),
-                feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
-                description: response.data.weather[0].main
-              };
-              // const userCity = store.Home.location.city;
-              // const userState = store.Home.location.region;
-              // const userCountry = store.Home.location.country;
-              done();
-            })
-            .catch(err => {
-              console.log(err);
-              done();
-            });
-        }
-        Home();
         break;
       // Add a case for each view that needs data from an API
       case "CareBook":
@@ -126,13 +121,13 @@ router.hooks({
           .get(
             `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=` //need to search for plants through an input
           )
-          .then(response => {
+          .then((response) => {
             // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
             console.log("response", response);
             store.CareBook.CareBooks = response.data;
             done();
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("Whoopsie", error);
             done();
           });
@@ -140,13 +135,13 @@ router.hooks({
       case "DiscussionPost":
         axios
           .get(`${process.env.DISCUSSION_POST_API}/discussionposts`)
-          .then(response => {
+          .then((response) => {
             // store response to state
             console.log("response", response);
             store.Discussion.DiscussionPosts = response.data;
             done();
           })
-          .catch(error => {
+          .catch((error) => {
             console.log("Whoopsie", error);
             done();
           });
@@ -155,20 +150,20 @@ router.hooks({
         done();
     }
   },
-  already: params => {
+  already: (params) => {
     const view =
       params && params.data && params.data.view
         ? capitalize(params.data.view)
         : "Home";
 
     render(store[view]);
-  }
+  },
 });
 
 router
   .on({
     "/": () => render(),
-    ":view": params => {
+    ":view": (params) => {
       let view = capitalize(params.data.view);
       if (view in store) {
         render(store[view]);
@@ -176,6 +171,6 @@ router
         render(store.Viewnotfound);
         console.log(`View ${view} not defined`);
       }
-    }
+    },
   })
   .resolve();
