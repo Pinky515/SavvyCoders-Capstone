@@ -35,7 +35,7 @@ function afterRender(state) {
       const requestData = {
         creator: allPosts.creator.value,
         title: allPosts.title.value,
-        post: allPosts.post.value,
+        post: allPosts.post.value
       };
       console.log("request Body", requestData);
 
@@ -78,7 +78,7 @@ router.hooks({
             state: response.data.region,
             country: response.data.country,
             lat: response.data.lat,
-            long: response.data.lon,
+            long: response.data.lon
           };
           console.log(store.Home.location);
         } catch (err) {
@@ -103,7 +103,7 @@ router.hooks({
               country: response.data.country_code,
               temp: kelvinToFahrenheit(response.data.main.temp),
               feelsLike: kelvinToFahrenheit(response.data.main.feels_like),
-              description: response.data.weather[0].main,
+              description: response.data.weather[0].main
             };
 
             done();
@@ -116,21 +116,58 @@ router.hooks({
         break;
       // Add a case for each view that needs data from an API
       case "CareBook":
-        // New Axios get request utilizing already made environment variable
-        axios
-          .get(
-            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=` //need to search for plants through an input
-          )
-          .then((response) => {
-            // We need to store the response to the state, in the next step but in the meantime let's see what it looks like so that we know what to store from the response.
-            console.log("response", response);
-            store.CareBook.CareBooks = response.data;
-            done();
-          })
-          .catch((error) => {
-            console.log("Whoopsie", error);
-            done();
+        try {
+          // New Axios get request utilizing already made environment variable
+          let searchedPlant;
+          const response = await axios.get(
+            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}` //need to search for plants through an input &q=${searchedPlant}
+          );
+          console.log("response", response);
+          // create object to be stored
+          store.CareBook.CareBooks = {
+            common_name: response.data.common_name,
+            scientific_name: response.data.scientific_name,
+            cycle: response.data.cycle,
+            waterFrequency: response.data.watering,
+            sunLight: response.data.sunlight,
+            image: response.data.default_image
+          };
+          console.log(store.CareBook.CareBooks);
+        } catch (error) {
+          console.log("Whoopsie", error);
+          done();
+        }
+        break;
+      case "Schedule":
+        try {
+          const response = await axios.get(
+            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}`
+          );
+
+          // create data array
+          const data = await response.json();
+          // create table
+          let table = `<table>`;
+          // add header row to table
+          table += `<tr><th>Plant</th><th>Water</th><th>Growth Cycle</th><th>Date Planted</th></tr>`;
+          // for each method to iterate over & add each dynamic plant schedule
+          data.forEach((plantData) => {
+            // dynamically add data. need to view API data to get correct names of water and fertilization frequency
+            table += `<tr><td>${plantData.data.common_name}</td><td>${plantData.data.watering}</td><td>${plantData.data.cycle}</td><td>${plantData.datePlanted}</td></tr>`;
+
+            table += `</table>`;
           });
+
+          /* create variable to call table ID "Schedule" from view/html */
+          const scheduleTable = document.getElementById("table");
+          /* Append variable and function to views/html */
+          table = scheduleTable.innerHTML;
+          console.log("New Schedule Created!");
+          return table;
+        } catch (error) {
+          document.getElementById("not-found");
+        }
+        done();
         break;
       case "DiscussionPost":
         axios
@@ -157,7 +194,7 @@ router.hooks({
         : "Home";
 
     render(store[view]);
-  },
+  }
 });
 
 router
@@ -171,6 +208,6 @@ router
         render(store.Viewnotfound);
         console.log(`View ${view} not defined`);
       }
-    },
+    }
   })
   .resolve();
