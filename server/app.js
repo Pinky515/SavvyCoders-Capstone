@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 // import custom route
 import CareBook from "./routes/carebooks.js";
-import DiscussionPost from "./routes/discussion.js";
+import Discussion from "./routes/discussion.js";
 
 const app = express();
 
@@ -74,7 +74,7 @@ app.get("/carebooks", (request, response) => {
 });
 
 app.use("/carebooks", CareBook);
-app.use("/discussionposts", DiscussionPost);
+app.use("/discussion", Discussion);
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

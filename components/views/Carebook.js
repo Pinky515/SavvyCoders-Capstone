@@ -1,11 +1,10 @@
-import { table } from "console";
 import html from "html-literal";
 
-export default (state) => html`
+export default state => html`
   <div id="search">
 
     <!-- search button -->
-    <form>
+    <form method="get" action="">
       <label for="plantSearch">Search for something new</label>
 
 
@@ -15,7 +14,7 @@ export default (state) => html`
       name="plantSearch"
       placeholder="Find this Plant"
     />
-<button class="plantSearch"></button>
+<button class="plantSearch"><i class="fa-solid fa-magnifying-glass" style="color: #d76a03ff;"></i></button>
   </div>
   <div id="saveGuideBook">
     <!-- save button -->
@@ -48,7 +47,7 @@ export default (state) => html`
     </tr>
   </thead>
   <tbody>
-  ${state.CareBooks.data.map((plant) => {
+  ${state.CareBooks.data.map(plant => {
     return `
      <tr>
       <td>${plant.id}</td>
@@ -56,10 +55,12 @@ export default (state) => html`
       <td>${plant.cycle}</td>
       <td>${plant.watering}</td>
       <td>${plant.sunlight}</td>
-      <td>${plant.default_image.thumbmail}</td>
+      <td>${plant.default_image.thumbnail}</td>
     </tr>
 `;
-  })}
+  })}catch {
+    done();
+  }
   </tbody></table>
 
     <!-- flip through care instructions -->

@@ -40,7 +40,7 @@ function afterRender(state) {
       console.log("request Body", requestData);
 
       axios
-        .post(`${process.env.DISCUSSION_POST_API}/discussionposts`, requestData)
+        .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
         .then((response) => {
           // push new post to forum allPosts
           store.Discussion.allPosts.push(response.data);
@@ -172,7 +172,7 @@ router.hooks({
         break;
       case "Discussion":
         axios
-          .get(`${process.env.DISCUSSION_POST_API}/discussionposts`)
+          .get(`${process.env.DISCUSSION_POST_API}/discussion`)
           .then((response) => {
             // store response to state
             console.log("response", response);

@@ -1,9 +1,11 @@
 import html from "html-literal";
 
-export default (state) => html`
+export default state => html`
   <div id="discussionForumPage">
     <div id="magnifyingGlass">
-      <!-- magnifying glass icon turns into search bar when selected -->
+      <button class="postSearch">
+        <i class="fa-solid fa-magnifying-glass" style="color: #d76a03ff;"></i>
+      </button>
     </div>
     <div id="createPost">
       <!-- new post button opens create new post -->
@@ -47,7 +49,7 @@ export default (state) => html`
         </thead>
         <tbody>
           ${state.discussionForumPage.postList
-            .map((post) => {
+            .map(post => {
               return `<tr>
           <td>${post.title}</td>
           <td>${post.content}</td>
