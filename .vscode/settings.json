@@ -19,7 +19,6 @@
   "workbench.enableExperiments": false,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.view.alwaysShowHeaderActions": true,
-  "editor.rulers": [
-      100, 120
-  ]
+  "editor.rulers": [100, 120],
+  "cSpell.words": ["Carebook", "discussionposts", "Whoopsie"]
 }

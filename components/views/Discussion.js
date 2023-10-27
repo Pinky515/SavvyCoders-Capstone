@@ -1,6 +1,6 @@
 import html from "html-literal";
 
-export default state => html`
+export default (state) => html`
   <div id="discussionForumPage">
     <div id="magnifyingGlass">
       <!-- magnifying glass icon turns into search bar when selected -->
@@ -32,7 +32,7 @@ export default state => html`
           placeholder="What would you like to say?"
           required
         />
-        <input type="submit" value="createPost" />
+        <input type="submit" value="createPost" name="createPost" />
       </form>
     </div>
     <div id="postList">
@@ -47,7 +47,7 @@ export default state => html`
         </thead>
         <tbody>
           ${state.discussionForumPage.postList
-            .map(post => {
+            .map((post) => {
               return `<tr>
           <td>${post.title}</td>
           <td>${post.content}</td>

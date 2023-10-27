@@ -1,7 +1,7 @@
 import html from "html-literal";
 import baseLogo from "../../utils/photos/baseLogo.png";
 
-export default state => html`
+export default (state) => html`
   <div id="home-pg">
     <div id="logo-heart">
       <img src="${baseLogo}" alt="Plantiverse Logo" />
@@ -39,12 +39,12 @@ export default state => html`
     <div id="location">
       <!-- Current Location -->
     </div>
-    <form class="newLocation">
-      <!-- Changing location updates the weather -->
-      <input type="text" id="newLocation" name="newLocation" size="15" />
-      <input type="submit" value="Check the Weather" />
-      <!-- need to search location to pull weather into -->
-    </form>
+    <!-- <form class="newLocation"> -->
+    <!-- Changing location updates the weather -->
+    <!-- <input type="text" id="newLocation" name="newLocation" size="15" /> -->
+    <!-- <input type="submit" value="Check the Weather" /> -->
+    <!-- need to search location to pull weather into -->
+    <!-- </form> -->
   </div>
 `;
 // location code. how do i make sure this is in the correct div?
