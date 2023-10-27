@@ -1,5 +1,5 @@
 export { default as Intro } from "./Intro";
-export { default as CareBook } from "./Carebook";
+export { default as Carebook } from "./Carebook";
 export { default as Home } from "./Home";
 export { default as Discussion } from "./Discussion";
 export { default as MyGarden } from "./Mygarden";

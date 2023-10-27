@@ -61,7 +61,6 @@ router.hooks({
         ? capitalize(params.data.view)
         : "Home";
     // create variables for user location
-
     let location;
     // Add a switch case statement to handle multiple routes
     switch (view) {
@@ -115,26 +114,28 @@ router.hooks({
 
         break;
       // Add a case for each view that needs data from an API
-      case "CareBook":
-        try {
-          // New Axios get request utilizing already made environment variable
-          let searchedPlant;
-          const response = await axios.get(
-            `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}` //need to search for plants through an input &q=${searchedPlant}
-          );
-          console.log("response", response);
-          // create object to be stored
-          store.CareBook.CareBooks = {
-            common_name: response.data.common_name,
-            scientific_name: response.data.scientific_name,
-            cycle: response.data.cycle,
-            waterFrequency: response.data.watering,
-            sunLight: response.data.sunlight,
-            image: response.data.default_image
-          };
-          console.log(store.CareBook.CareBooks);
-        } catch (error) {
-          console.log("Whoopsie", error);
+      case "Carebook":
+        // New Axios get request utilizing already made environment variable
+        if (params?.params?.plantSearch) {
+          axios
+            .get(
+              `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=${params.params.plantSearch}` //need to search for plants through an input
+            )
+            .then((response) => {
+              console.log("response", response);
+              // create object to be stored
+              // store.Carebook.CareBooks = {
+              //   common_name: response.data.common_name,
+              //   scientific_name: response.data.scientific_name,
+              //   cycle: response.data.cycle,
+              //   waterFrequency: response.data.watering,
+              //   sunLight: response.data.sunlight,
+              //   image: response.data.default_image
+              store.Carebook.CareBooks = response.data;
+              console.log(store);
+              done();
+            });
+        } else {
           done();
         }
         break;
@@ -150,6 +151,8 @@ router.hooks({
           let table = `<table>`;
           // add header row to table
           table += `<tr><th>Plant</th><th>Water</th><th>Growth Cycle</th><th>Date Planted</th></tr>`;
+          /* create variable to call table ID "Schedule" from view/html */
+          const scheduleTable = document.getElementById("table");
           // for each method to iterate over & add each dynamic plant schedule
           data.forEach((plantData) => {
             // dynamically add data. need to view API data to get correct names of water and fertilization frequency
@@ -158,10 +161,8 @@ router.hooks({
             table += `</table>`;
           });
 
-          /* create variable to call table ID "Schedule" from view/html */
-          const scheduleTable = document.getElementById("table");
           /* Append variable and function to views/html */
-          table = scheduleTable.innerHTML;
+          scheduleTable.push(table);
           console.log("New Schedule Created!");
           return table;
         } catch (error) {
@@ -169,7 +170,7 @@ router.hooks({
         }
         done();
         break;
-      case "DiscussionPost":
+      case "Discussion":
         axios
           .get(`${process.env.DISCUSSION_POST_API}/discussionposts`)
           .then((response) => {
@@ -183,6 +184,7 @@ router.hooks({
             done();
           });
         break;
+      case "MyGarden":
       default:
         done();
     }
@@ -196,7 +198,7 @@ router.hooks({
     render(store[view]);
   }
 });
-
+console.log(store);
 router
   .on({
     "/": () => render(),

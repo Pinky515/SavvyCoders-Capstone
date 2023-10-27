@@ -216,6 +216,12 @@ Current Location
   border: 2px solid #a64253ff;
 }
 
+/* Carebooks */
+table.searchedPlantsList {
+  display: inline-table;
+  align-content: center;
+}
+
 /* media queries */
 @media (min-width: 550px) {
   nav > .fa-bars {

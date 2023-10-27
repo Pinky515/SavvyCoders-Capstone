@@ -1,7 +1,7 @@
 import html from "html-literal";
 
-export default state => html`
-  <div id="my-garden">
+export default (state) => html`
+  <div id="myGarden">
     <!-- Username's Garden (user input garden name in header) -->
 
     <div id="addPlot">
@@ -12,8 +12,17 @@ export default state => html`
       <!-- touching(mobile) or hovering(desktop) over plot brings pop up of plant date and projected maturity date -->
     </div>
 
-    <div id="trackerTable">
+    <div id="gardenTracker">
       <!-- table of plant names and maturity date. maybe a countdown -->
+      <table id="trackerTable">
+        <thead>
+          <tr>
+            <th>Plant Name</th>
+            <th>Expected Maturity Date</th>
+            <th>Days Until Marture</th>
+          </tr>
+        </thead>
+      </table>
     </div>
   </div>
 `;
