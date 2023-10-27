@@ -1,16 +1,15 @@
 // Router is express method that allows you to define routes outside of file and import it in (saves file from being too congested)
 import { Router, response } from "express";
-import CareBook from "../models/Carebook.js";
-import { request } from "http";
+import Carebook from "../models/Carebook.js";
 
 const router = Router();
 
 // Create route
 router.post("/", async (request, response) => {
   try {
-    const newCareBook = new CareBook(request.body);
+    const newCarebook = new Carebook(request.body);
 
-    const data = await newCareBook.save();
+    const data = await newCarebook.save();
 
     response.json(data);
   } catch (error) {
@@ -29,7 +28,7 @@ router.get("/", async (request, response) => {
   try {
     // store query param as js object
     const query = request.query; //Defaults to an empty {}
-    const data = await CareBook.find(query);
+    const data = await Carebook.find(query);
 
     response.json(data);
   } catch (error) {
@@ -39,10 +38,10 @@ router.get("/", async (request, response) => {
   }
 });
 
-// get a single CareBook by ID
+// get a single Carebook by ID
 router.get("/:id", async (request, response) => {
   try {
-    const data = await CareBook.findById(request.params.id);
+    const data = await Carebook.findById(request.params.id);
 
     response.json(data);
   } catch (error) {
@@ -56,7 +55,7 @@ router.get("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
   try {
     // filter by trait identified in {}
-    const data = await CareBook.findByIdAndRemove(request.params.id, {});
+    const data = await Carebook.findByIdAndRemove(request.params.id, {});
     response.json(data);
   } catch (error) {
     console.log(error);

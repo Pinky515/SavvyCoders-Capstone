@@ -1,12 +1,12 @@
 import { Router } from "express";
-import DiscussionPost from "../models/Discussion.js";
+import Discussion from "../models/Discussion.js";
 
 const router = Router();
 
 // Create Discussion Posts Route
 router.post("/", async (request, response) => {
   try {
-    const newPost = new DiscussionPost(request.body);
+    const newPost = new Discussion(request.body);
 
     const data = await newPost.save();
 
@@ -26,7 +26,7 @@ router.get("/", async (request, response) => {
   try {
     // store params into json
     const query = request.query; //Defaults to empty object
-    const data = await DiscussionPost.find(query);
+    const data = await Discussion.find(query);
     response.json(data);
   } catch (error) {
     console.log(error);
@@ -37,7 +37,7 @@ router.get("/", async (request, response) => {
 // Get a specific post by ID
 router.get("/:id", async (request, response) => {
   try {
-    const data = await DiscussionPost.findById(request.params.id);
+    const data = await Discussion.findById(request.params.id);
     response.json(data);
   } catch (error) {
     console.log(error);
@@ -48,7 +48,7 @@ router.get("/:id", async (request, response) => {
 // Delete a post by ID
 router.delete("/:id", async (request, response) => {
   try {
-    const data = await DiscussionPost.findByIdAndRemove(request.params.id, {});
+    const data = await Discussion.findByIdAndRemove(request.params.id, {});
     response.json(data);
   } catch (error) {
     console.log(error);
@@ -60,10 +60,11 @@ router.delete("/:id", async (request, response) => {
 router.put("/:id", async (request, response) => {
   try {
     const body = request.body;
-    const data = await DiscussionPost.findByIdAndUpdate(
+    const data = await Discussion.findByIdAndUpdate(
       request.params.id,
       {
         $set: {
+          title: body.title,
           user: body.user,
           post: body.post
         }
