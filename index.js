@@ -184,7 +184,7 @@ router.hooks({
             done();
           });
         break;
-      case "MyGarden":
+      case "Mygarden":
       default:
         done();
     }
