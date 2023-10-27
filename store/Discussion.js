@@ -1,4 +1,7 @@
 export default {
   header: "Let's Talk Plants",
-  view: "Discussion"
+  view: "Discussion",
+  discussionForumPage: {
+    postList: []
+  }
 };

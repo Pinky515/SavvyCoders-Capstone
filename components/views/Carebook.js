@@ -47,20 +47,18 @@ export default state => html`
     </tr>
   </thead>
   <tbody>
-  ${state.CareBooks.data.map(plant => {
+  ${state.CareBooks.data.map((plant, index) => {
     return `
      <tr>
-      <td>${plant.id}</td>
+      <td>${index + 1}</td>
       <td>${plant.common_name}</td>
       <td>${plant.cycle}</td>
       <td>${plant.watering}</td>
       <td>${plant.sunlight}</td>
-      <td>${plant.default_image.thumbnail}</td>
+      <td><img src="${plant.default_image.thumbnail}"/></td>
     </tr>
 `;
-  })}catch {
-    done();
-  }
+  })}
   </tbody></table>
 
     <!-- flip through care instructions -->
