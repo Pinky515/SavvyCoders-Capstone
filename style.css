@@ -222,6 +222,9 @@ table.searchedPlantsList {
   align-content: center;
 }
 
+/* Mygarden */
+
+
 /* media queries */
 @media (min-width: 550px) {
   nav > .fa-bars {

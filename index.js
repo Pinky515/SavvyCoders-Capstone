@@ -3,6 +3,7 @@ import * as store from "./store";
 import Navigo from "navigo";
 import { capitalize } from "lodash";
 import axios from "axios";
+import { error } from "console";
 // import * as utils from "./utils";
 
 const router = new Navigo("/");
@@ -26,7 +27,7 @@ function afterRender(state) {
 
   if (state.view === "Discussion") {
     // event handler for new post submit button
-    document.querySelector("form").addEventListener("submit", (event) => {
+    document.querySelector("form").addEventListener("submit", event => {
       event.preventDefault();
 
       // get form element
@@ -42,12 +43,12 @@ function afterRender(state) {
 
       axios
         .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
-        .then((response) => {
+        .then(response => {
           // push new post to forum allPosts
           store.Discussion.allPosts.push(response.data);
           router.navigate("/Discussion");
         })
-        .catch((error) => {
+        .catch(error => {
           console.log("Whoopsie", error);
         });
     });
@@ -91,9 +92,9 @@ router.hooks({
           .get(
             `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.long}&limit=1&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
           )
-          .then((response) => {
+          .then(response => {
             // Convert Kelvin to Fahrenheit since OpenWeatherMap does provide otherwise
-            const kelvinToFahrenheit = (kelvinTemp) =>
+            const kelvinToFahrenheit = kelvinTemp =>
               Math.round((kelvinTemp - 273.15) * (9 / 5) + 32);
 
             // Create an object to be stored in the Home state from the response
@@ -108,7 +109,7 @@ router.hooks({
 
             done();
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
             done();
           });
@@ -117,12 +118,12 @@ router.hooks({
       // Add a case for each view that needs data from an API
       case "Carebook":
         // New Axios get request utilizing already made environment variable
-        if (params?.params?.plantSearch) {
+        if (params.params.plantSearch) {
           axios
             .get(
               `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=${params.params.plantSearch}` //need to search for plants through an input
             )
-            .then((response) => {
+            .then(response => {
               console.log("response", response);
               // create object to be stored
               // store.Carebook.CareBooks = {
@@ -155,7 +156,7 @@ router.hooks({
           /* create variable to call table ID "Schedule" from view/html */
           const scheduleTable = document.getElementById("table");
           // for each method to iterate over & add each dynamic plant schedule
-          data.forEach((plantData) => {
+          data.forEach(plantData => {
             // dynamically add data. need to view API data to get correct names of water and fertilization frequency
             table += `<tr><td>${plantData.data.common_name}</td><td>${plantData.data.watering}</td><td>${plantData.data.cycle}</td><td>${plantData.datePlanted}</td></tr>`;
 
@@ -172,25 +173,58 @@ router.hooks({
         done();
         break;
       case "Discussion":
-        axios
+        await axios
           .get(`${process.env.DISCUSSION_POST_API}/discussion`)
-          .then((response) => {
+          .then(response => {
             // store response to state
             console.log("response", response);
             store.Discussion.DiscussionPosts = response.data;
             done();
           })
-          .catch((error) => {
+          .catch(error => {
             console.log("Whoopsie", error);
             done();
           });
         break;
       case "Mygarden":
-      default:
-        done();
+        axios
+          .get(`${process.env.DISCUSSION_POST_API}/mygarden`)
+          .then(response => {
+            try {
+              const countDown = ` ${state.GardenTracker.data.map(() => {
+                let today = new Date().getTime;
+                let maturityDate = new Date(`${plantData.maturityDate}`)
+                  .getTime;
+                let submitEntryButton = document.getElementById("countDown");
+                let maturityDateMinusToday = maturityDate - today;
+                // Math.floor rounds down to the nearest integer.
+                // converting from milliseconds to days
+                let daysLeft = Math.floor(
+                  maturityDateMinusToday / (1000 * 60 * 60 * 24)
+                );
+                document.getElementById("countDown").innerHTML = daysLeft;
+                if (maturityDateMinusToday == 0) {
+                  submitEntryButton.disabled = false;
+                } else {
+                  submitEntryButton.disabled = true;
+                }
+              })}`;
+            } catch (error) {
+              document.getElementById("not-found");
+              // store to state
+              console.log("response", response);
+              store.Mygarden.GardenTracker = response.data;
+              done();
+            }
+          })
+          .catch(error => {
+            console.log("Whoopsie", error);
+            done();
+          });
+        break;
     }
   },
-  already: (params) => {
+  already: params => {
     const view =
       params && params.data && params.data.view
         ? capitalize(params.data.view)
@@ -203,7 +237,7 @@ console.log(store);
 router
   .on({
     "/": () => render(),
-    ":view": (params) => {
+    ":view": params => {
       let view = capitalize(params.data.view);
       if (view in store) {
         render(store[view]);
