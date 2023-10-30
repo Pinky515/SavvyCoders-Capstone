@@ -25,7 +25,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Unable to Connect:"));
 db.once(
   "open",
-  console.log.bind(console, "Connection to MongoDB has openned, successfully!")
+  console.log.bind(console, "Connection to MongoDB has opened, successfully!")
 );
 
 const PORT = process.env.PORT || 4040;

@@ -2,6 +2,12 @@ import html from "html-literal";
 
 export default state => html`
   <div id="discussionForumPage">
+    <input
+      type="search"
+      id="postSearch"
+      name="postSearch"
+      placeholder="What's on your mind?"
+    />
     <div id="magnifyingGlass">
       <button class="postSearch">
         <i class="fa-solid fa-magnifying-glass" style="color: #d76a03ff;"></i>

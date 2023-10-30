@@ -18,6 +18,6 @@ const discussionPostSchema = new mongoose.Schema({
 });
 
 // convert Schema to model
-const DiscussionPost = mongoose.model("DiscussionPost", discussionPostSchema);
+const Discussion = mongoose.model("Discussion", discussionPostSchema);
 
-export default DiscussionPost;
+export default Discussion;
