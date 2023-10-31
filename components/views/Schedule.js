@@ -1,29 +1,33 @@
 import html from "html-literal";
 
-export default (state) => html`
+export default state => html`
   <div id="schedule">
     <!-- add plant button -->
-    <button class="addButton" onclick="">
-      <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
-    </button>
+    <form action="" method="post" class="addPlantSchedule">
+      <div class="addPlantSchedule">
+        <button class="addButton" onclick="">
+          <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
+        </button>
+      </div>
+    </form>
     <!-- calendar with visual representation of water/fertilization schedule -->
     <div class="inputs">
       <label for="Plant">Plant</label>
-      <!-- <input
+      <input
         type="text"
         id="Plant"
         class="columns"
         name="Plant"
         placeholder="Plant Name"
-      /> -->
+      />
       <label for="waterFrequency">Water</label>
-      <!-- <input
+      <input
         type="date"
         id="waterFrequency"
         class="columns"
         name="waterFrequency"
         placeholder="Next time to water"
-      /> -->
+      />
       <label for="datePlanted">Date Planted</label>
       <input
         type="text"

@@ -11,13 +11,12 @@ export default state => html`
     <!-- diagram of garden's layout -->
     <!-- touching(mobile) or hovering(desktop) over plot brings pop up of plant date and projected maturity date -->
     <!-- </div> -->
-    <form id="gardenTracker" method="">
+    <form id="gardenTracker" method="post">
       <div class="gardenTracker">
         <!-- add button -->
         <button name="addNewEntry" value="gardenTracker">
           <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
         </button>
-        <!-- table of plant names and maturity date. maybe a countdown -->
         <table id="trackerTable">
           <thead>
             <tr>
@@ -28,17 +27,16 @@ export default state => html`
           </thead>
 
           <tbody>
-            ${state.GardenTracker.data.map((plant, index) => {
+            <!-- values entered by user -->
+            ${state.GardenTracker.map((plant, index) => {
               return `
 <>
-            {/* values entered by user */}
             <td>${index + 1}</td>
             <td>${plant.plantName}</td>
             <td>${plant.maturityDate}</td>
-            {/* create countdown based on date and maturity date */}
-            <td id="countDown" >${countDown}</td>
+            <td id="countDown" >${plant.daysLeft}</td>
             <td>
-<button name="fullyMatureAndHarvested" value="gardenTracker">
+<button name="fullyMatureAndHarvested" id ="submitEntryButton" value="gardenTracker">
 <i class="fa-solid fa-seedling" style="color: #32e875ff;"></i>
 </button>
             </td>

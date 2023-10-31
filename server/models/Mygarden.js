@@ -8,8 +8,8 @@ const myGardenSchema = new mongoose.Schema({
   },
   maturityDate: {
     type: Date,
-    min: 2023 - 10 - 23,
-    max: 2199 - 12 - 31,
+    min: "2023-10-23",
+    max: "2199-12-31",
     required: true
   },
   countDown: {
