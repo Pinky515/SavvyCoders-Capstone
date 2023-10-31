@@ -25,6 +25,20 @@ function afterRender(state) {
     document.querySelector("nav > ul").classList.toggle("hidden--mobile");
   });
 
+  if (state.view === "Mygarden") {
+    let submitEntryButton = document.getElementById("submitEntryButton");
+console.log(submitEntryButton);
+
+
+store.Mygarden.GardenTracker.forEach((plantData) => {plantData.submitEntryButton, maturityDateMinusToday;
+                if (maturityDateMinusToday == 0) {
+                  submitEntryButton.disabled = false;
+                } else {
+                  submitEntryButton.disabled = true;
+                }
+  })
+}
+
   if (state.view === "Discussion") {
     // event handler for new post submit button
     document.querySelector("form").addEventListener("submit", event => {
@@ -118,7 +132,7 @@ router.hooks({
       // Add a case for each view that needs data from an API
       case "Carebook":
         // New Axios get request utilizing already made environment variable
-        if (params.params.plantSearch) {
+        if (params?.params?.plantSearch) {
           axios
             .get(
               `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=${params.params.plantSearch}` //need to search for plants through an input
@@ -190,38 +204,33 @@ router.hooks({
         axios
           .get(`${process.env.DISCUSSION_POST_API}/mygarden`)
           .then(response => {
-            try {
-              const countDown = ` ${state.GardenTracker.data.map(() => {
+                          // store to state
+              console.log("response", response.data);
+              store.Mygarden.GardenTracker = response.data;
+              console.log(store.Mygarden.GardenTracker);
+
+              store.Mygarden.GardenTracker.forEach((plantData) => {
                 let today = new Date().getTime;
                 let maturityDate = new Date(`${plantData.maturityDate}`)
                   .getTime;
-                let submitEntryButton = document.getElementById("countDown");
+
                 let maturityDateMinusToday = maturityDate - today;
                 // Math.floor rounds down to the nearest integer.
                 // converting from milliseconds to days
                 let daysLeft = Math.floor(
                   maturityDateMinusToday / (1000 * 60 * 60 * 24)
                 );
-                document.getElementById("countDown").innerHTML = daysLeft;
-                if (maturityDateMinusToday == 0) {
-                  submitEntryButton.disabled = false;
-                } else {
-                  submitEntryButton.disabled = true;
-                }
-              })}`;
-            } catch (error) {
-              document.getElementById("not-found");
-              // store to state
-              console.log("response", response);
-              store.Mygarden.GardenTracker = response.data;
-              done();
-            }
+
+              });
+done();
           })
           .catch(error => {
             console.log("Whoopsie", error);
             done();
           });
         break;
+        default:
+          done();
     }
   },
   already: params => {

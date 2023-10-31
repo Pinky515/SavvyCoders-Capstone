@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 // import custom route
-import CareBook from "./routes/carebooks.js";
+import Carebook from "./routes/carebooks.js";
 import Discussion from "./routes/discussion.js";
+import Mygarden from "./routes/mygarden.js";
+import Schedule from "./routes/schedule.js";
 
 const app = express();
 
@@ -66,15 +68,10 @@ app.get("/status", (request, response) => {
   response.send(JSON.stringify({ message: "Service is healthy" }));
 });
 
-app.get("/carebooks", (request, response) => {
-  // Create the headers for response by default 200
-  // Create the response body
-  // End and return the response
-  response.send(JSON.stringify({ message: "Service is healthy" }));
-});
-
-app.use("/carebooks", CareBook);
+app.use("/carebooks", Carebook);
 app.use("/discussion", Discussion);
+app.use("/mygarden", Mygarden);
+app.use("/schedule", Schedule);
 
 // tell express to start listening on local port
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
