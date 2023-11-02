@@ -62,11 +62,11 @@ function afterRender(state) {
 
   if (state.view === "Discussion") {
     // event handler for new post submit button
-    document.querySelector("form").addEventListener("submit", event => {
+    let discussionPosts = Array.from(document.getElementsByClassName("createPost"));
+    discussionPosts.addEventListener("click", event => {
       event.preventDefault();
 
-      // get form element
-      const allPosts = event.target.elements;
+      const allPosts = store.Discussion.discussionForumPage.allPosts[event.target.dataset.index];;
       console.log("Retrieved all Posts", allPosts);
 
       const requestData = {
@@ -80,7 +80,7 @@ function afterRender(state) {
         .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
         .then(response => {
           // push new post to forum allPosts
-          store.Discussion.allPosts.push(response.data);
+          store.Discussion.discussionForumPage.allPosts.push(response.data);
           router.navigate("/Discussion");
         })
         .catch(error => {

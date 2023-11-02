@@ -17,6 +17,17 @@ export default state => html`
       <!-- new post button opens create new post -->
       <h1>Create New Post</h1>
       <form action="" method="post">
+        <label for="creator">Creator</label>
+        <input
+          type="text"
+          name="creator"
+          id="creator"
+          minlength="3"
+          maxlength="25"
+          placeholder="Who are you?"
+          required
+        />
+
         <label for="postTitle">Title</label>
         <input
           type="text"
@@ -28,6 +39,7 @@ export default state => html`
           placeholder="Give your post a title."
           required
         />
+
         <label for="post">Start a Discussion</label>
         <input
           type="text"
@@ -40,7 +52,13 @@ export default state => html`
           placeholder="What would you like to say?"
           required
         />
-        <input type="submit" value="createPost" name="createPost" />
+
+        <button name="createPost" value="createPost">
+          <i
+            class="fa-regular fa-paper-plane fa-xl createPost"
+            style="color: #279af1ff;"
+          ></i>
+        </button>
       </form>
     </div>
     <div id="postList">
@@ -54,15 +72,15 @@ export default state => html`
           </tr>
         </thead>
         <tbody>
-          ${state.discussionForumPage.postList
-            .map(post => {
-              return `<tr>
+          ${state.discussionForumPage.allPosts
+    .map(post => {
+      return `<tr>
           <td>${post.title}</td>
           <td>${post.content}</td>
           <td>${post.creator}</td>
           `;
-            })
-            .join("")}
+    })
+    .join("")}
         </tbody>
       </table>
     </div>
