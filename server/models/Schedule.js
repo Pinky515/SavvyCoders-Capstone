@@ -6,9 +6,9 @@ const scheduleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  waterFrequency: {
+  growthCycle: {
     type: String,
-    required: true
+    required: false
   },
   datePlanted: {
     type: Date,
