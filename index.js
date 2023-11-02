@@ -25,19 +25,40 @@ function afterRender(state) {
     document.querySelector("nav > ul").classList.toggle("hidden--mobile");
   });
 
+  if (state.view === "Carebook") {
+    Array.from(document.getElementsByClassName("saveCareBook")).forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+        const responseBody = store.Carebook.CareBooks.data[event.target.dataset.index];
+        console.log(responseBody);
+
+        axios
+          .post(`${process.env.DISCUSSION_POST_API}/carebooks`, responseBody)
+          .then(response => {
+            store.Carebook.CareBooks.data.push(response.data);
+            router.navigate("/Carebook");
+          })
+          .catch(error => {
+            console.log("Whoopsie", error);
+          })
+      })
+    })
+  }
+
   if (state.view === "Mygarden") {
     let submitEntryButton = document.getElementById("submitEntryButton");
-console.log(submitEntryButton);
+    console.log(submitEntryButton);
 
 
-store.Mygarden.GardenTracker.forEach((plantData) => {plantData.submitEntryButton, maturityDateMinusToday;
-                if (maturityDateMinusToday == 0) {
-                  submitEntryButton.disabled = false;
-                } else {
-                  submitEntryButton.disabled = true;
-                }
-  })
-}
+    // store.Mygarden.GardenTracker.forEach((plantData) => {
+    //   plantData.submitEntryButton, plantData.maturityDateMinusToday;
+    //   if (maturityDateMinusToday == 0) {
+    //     submitEntryButton.disabled = false;
+    //   } else {
+    //     submitEntryButton.disabled = true;
+    //   }
+    // })
+  }
 
   if (state.view === "Discussion") {
     // event handler for new post submit button
@@ -160,27 +181,8 @@ router.hooks({
           const response = await axios.get(
             `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}`
           );
-
-          // create data array
           const data = await response.json();
-          // create table
-          let table = `<table>`;
-          // add header row to table
-          table += `<tr><th>Plant</th><th>Water</th><th>Growth Cycle</th><th>Date Planted</th></tr>`;
-          /* create variable to call table ID "Schedule" from view/html */
-          const scheduleTable = document.getElementById("table");
-          // for each method to iterate over & add each dynamic plant schedule
-          data.forEach(plantData => {
-            // dynamically add data. need to view API data to get correct names of water and fertilization frequency
-            table += `<tr><td>${plantData.data.common_name}</td><td>${plantData.data.watering}</td><td>${plantData.data.cycle}</td><td>${plantData.datePlanted}</td></tr>`;
-
-            table += `</table>`;
-          });
-
-          /* Append variable and function to views/html */
-          scheduleTable.push(table);
-          console.log("New Schedule Created!");
-          return table;
+          return;
         } catch (error) {
           document.getElementById("not-found");
         }
@@ -204,33 +206,42 @@ router.hooks({
         axios
           .get(`${process.env.DISCUSSION_POST_API}/mygarden`)
           .then(response => {
-                          // store to state
-              console.log("response", response.data);
-              store.Mygarden.GardenTracker = response.data;
-              console.log(store.Mygarden.GardenTracker);
+            // store to state
+            console.log("response", response.data);
+            let data = response.data;
 
-              store.Mygarden.GardenTracker.forEach((plantData) => {
-                let today = new Date().getTime;
-                let maturityDate = new Date(`${plantData.maturityDate}`)
-                  .getTime;
+            store.Mygarden.GardenTracker = data.map((plantData) => {
+              let today = new Date().getTime();
+              let maturityDate = new Date(`${plantData.maturityDate}`)
+                .getTime();
+              console.log(maturityDate);
 
-                let maturityDateMinusToday = maturityDate - today;
-                // Math.floor rounds down to the nearest integer.
-                // converting from milliseconds to days
-                let daysLeft = Math.floor(
-                  maturityDateMinusToday / (1000 * 60 * 60 * 24)
-                );
+              plantData.maturityDateMinusToday = maturityDate - today;
+              console.log(plantData.maturityDateMinusToday);
+              // Math.floor rounds down to the nearest integer.
+              // converting from milliseconds to days
+              plantData.daysLeft = Math.floor(
+                plantData.maturityDateMinusToday / (1000 * 60 * 60 * 24)
+              );
+              if (plantData.daysLeft > 0) {
+                plantData.fullyMatureAndHarvested = false;
+              } else {
+                plantData.fullyMatureAndHarvested = true;
+              }
 
-              });
-done();
+              return plantData;
+            });
+
+            console.log(store.Mygarden.GardenTracker);
+            done();
           })
           .catch(error => {
             console.log("Whoopsie", error);
             done();
           });
         break;
-        default:
-          done();
+      default:
+        done();
     }
   },
   already: params => {

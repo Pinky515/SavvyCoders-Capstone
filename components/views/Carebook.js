@@ -1,5 +1,9 @@
 import html from "html-literal";
 
+function isDisabled(plant) {
+  return "disabled";
+}
+
 export default state => html`
   <div id="search">
 
@@ -15,11 +19,6 @@ export default state => html`
       placeholder="Find this Plant"
     />
 <button class="plantSearch"><i class="fa-solid fa-magnifying-glass" style="color: #d76a03ff;"></i></button>
-  </div>
-
-  <div id="savedCareBook">
-    <!-- add button -->
-
   </div>
 </form>
 
@@ -38,26 +37,32 @@ export default state => html`
       <th>Light Tolerance</th>
       <th>Picture</th>
       <th>Also Known As</th>
-      <th></th>
+      <th><i class="fa-regular fa-floppy-disk  fa-xl" style="color: #f7f7ffff;" isDisabled()></i></th>
     </tr>
   </thead>
   <tbody>
   ${state.CareBooks.data.map((plant, index) => {
-    return `
-     <tr>
-      <td>${index + 1}</td>
-      <td>${plant.common_name}</td>
-      <td>${plant.cycle}</td>
-      <td>${plant.watering}</td>
-      <td>${plant.sunlight}</td>
-      <td><img src="${plant.default_image.thumbnail}"/></td>
-      <td>${plant.other_name}</td>
-      <td><button name="saveCareBook" value="saveCareBook">
-    <i class="fa-regular fa-floppy-disk" style="color: #279af1ff;"></i>
-      </button></td>
-    </tr>
-`;
-  })}
+  return html`
+      <tr>
+        <td>${index + 1}</td>
+        <td>${plant.common_name}</td>
+        <td>${plant.cycle}</td>
+        <td>${plant.watering}</td>
+        <td>${plant.sunlight}</td>
+        <td><img src="${plant.default_image.original_url}" /></td>
+        <td>${plant.other_name}</td>
+        <td>
+          <button name="saveCareBook" value="saveCareBook">
+            <i
+              class="fa-regular fa-floppy-disk fa-xl saveCareBook"
+              style="color: #279af1ff;"
+              data-index="${index}"
+            ></i>
+          </button>
+        </td>
+      </tr>
+    `;
+})}
   </tbody></table>
 </form>
     <!-- flip through care instructions -->

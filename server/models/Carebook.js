@@ -33,31 +33,40 @@ const careBookSchema = new mongoose.Schema({
       default_image: {
         type: {
           image_id: {
-            type: Number
+            type: Number,
+            required: false
           },
           license: {
-            type: Number
+            type: Number,
+            required: false
           },
           license_name: {
-            type: String
+            type: String,
+            required: false
           },
           license_url: {
-            type: String
+            type: String,
+            required: false
           },
           original_url: {
-            type: String
+            type: String,
+            required: false
           },
           regular_url: {
-            type: String
+            type: String,
+            required: false
           },
           medium_url: {
-            type: String
+            type: String,
+            required: false
           },
           small_url: {
-            type: String
+            type: String,
+            required: false
           },
           thumbnail: {
-            type: String
+            type: String,
+            required: false
           }
         }
       }
