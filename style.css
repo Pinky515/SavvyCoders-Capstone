@@ -57,18 +57,14 @@ img {
 
 #intro-h1,
 #welcome {
-  color: #a64253ff;
-  /* downloaded PlayfairDisplay font not working */
-  font-family: "Playfair Display";
-  font-size: 3rem;
-  margin-bottom: 0;
-  margin-top: 0;
-  padding-bottom: 0;
+  color: #a64253;
   letter-spacing: 1rem;
-  width: 90%;
   border-radius: 3px 15px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
+  margin: 0 auto;
+  padding: 5px;
+  font-family: Playfair Display;
+  font-size: 2rem;
 }
 
 #intro-h1 {
@@ -117,46 +113,42 @@ nav > ul {
 
 #logo-heart {
   position: relative;
-  width: 200px;
+  width: 100px;
   height: 200px;
-  content: "";
-  background-color: #fff;
+  margin: auto;
+  z-index: 1;
 }
 
+#logo-heart::after,
 #logo-heart::before {
   position: absolute;
-  bottom: 0;
-  left: -100px;
-  width: 200px;
-  height: 200px;
-  /* content: ""; */
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-  background-color: #fff;
+  content: "";
+  left: 90px;
+  top: 0;
+  width: 100px;
+  height: 160px;
+  background: #f7f7ffff;
+  border-radius: 50px 50px 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+  box-shadow: 0 0 8px 8px #fff;
 }
 
 #logo-heart::after {
-  position: absolute;
-  top: -100px;
-  right: 0px;
-  width: 200px;
-  height: 200px;
-  /* content: ""; */
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-  background-color: #fff;
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin :100% 100%;
 }
 
 #logo-heart > img {
-  border-radius: 70px;
-  width: 35%;
+  z-index: 9;
+  border-radius: 50px 50px 95px 85px;
+  width: 145%;
   margin: 25px auto 15px;
   padding: 0;
-  box-shadow: 0 0 10px 10px #fff;
+  position: relative;
+  top: -10px;
+  left: 25px;
 }
 /* Welcome Home Greeting with username*/
 
@@ -170,6 +162,8 @@ nav > ul {
   box-shadow: 0 0 10px 10px #fff;
 }
 
+/* Schedule */
+
 #schedule,
 #Schedule {
   /* border: solid 2px; */
@@ -178,17 +172,34 @@ nav > ul {
   width: 60%;
 }
 
-.addButton {
-  padding: 10px;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
+form.addPlantSchedule {
+   width: 150%;
+  margin-left: -155px;
 }
 
-#inputs {
+button.addPlantSchedule {
+  cursor: pointer;
+  background-color: #0000;
+  border: none;
+  padding: 10px;
   display: flex;
-  justify-content: center;
+  flex-flow: wrap;
+  align-content: flex-start;
+}
+
+.schedule-inputs {
   flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
+  margin: 10px 0;
+}
+
+.schedule-inputs input, .schedule-inputs select {
+  height: 30px;
+}
+
+.schedule-inputs h3 {
+  margin: 10px;
 }
 
 table {
@@ -217,12 +228,56 @@ Current Location
 }
 
 /* Carebooks */
+
+#search form {
+  margin: 15px;
+}
+
+.postSearch {
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+button.plantSearch {
+  background: white;
+  border: thin solid;
+}
+
+form.createPost {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+}
+
+.postContent {
+  display: flex;
+  flex-direction: column;
+}
+
+input#post {
+  flex-grow: 3;
+}
+
+.postContent > button {
+  align-self: center;
+  margin: 5px;
+  height: 30px;
+}
+
 table.searchedPlantsList {
   display: inline-table;
   align-content: center;
 }
 
 /* Mygarden */
+
+button.addNewEntry {
+  cursor: pointer;
+  background-color: #0000;
+  border: none;
+  padding: 10px;
+}
 
 
 /* media queries */

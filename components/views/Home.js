@@ -1,7 +1,7 @@
 import html from "html-literal";
 import baseLogo from "../../utils/photos/baseLogo.png";
 
-export default (state) => html`
+export default state => html`
   <div id="home-pg">
     <div id="logo-heart">
       <img src="${baseLogo}" alt="Plantiverse Logo" />
@@ -10,7 +10,7 @@ export default (state) => html`
       <h1 id="welcome">Welcome Back</h1>
       <h2>
         <!-- insert username -->
-        Pinky515
+        <!-- $ {user} -->
       </h2>
     </div>
     <!-- Current Weather Img dependent upon the weather  -->
@@ -25,14 +25,14 @@ export default (state) => html`
     <div id="date">
       <script>
         ${function getTheDate() {
-          const dateLocal = new Date();
-          const day = dateLocal.getDate();
-          const month = dateLocal.getMonth();
-          const year = dateLocal.getFullYear();
+    const dateLocal = new Date();
+    const day = dateLocal.getDate();
+    const month = dateLocal.getMonth();
+    const year = dateLocal.getFullYear();
 
-          let currentDateLocal = `${month + 1} ${day}, ${year}`;
-          return currentDateLocal;
-        }};
+    let currentDateLocal = `${month + 1} ${day}, ${year}`;
+    return currentDateLocal;
+  }};
         console.log(getTheDate());
       </script>
     </div>

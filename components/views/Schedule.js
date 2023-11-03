@@ -8,11 +8,11 @@ export default state => html`
   <div id="schedule">
     <!-- add plant button -->
     <form action="" method="post" class="addPlantSchedule">
-      <div class="addPlantSchedule"></div>
-
       <!-- calendar with visual representation of water/fertilization schedule -->
-      <div class="inputs">
-        <label for="Plant">Plant</label>
+      <div class="schedule-inputs">
+        <label for="Plant">
+          <h3>Plant</h3>
+        </label>
         <input
           type="text"
           id="Plant"
@@ -20,7 +20,7 @@ export default state => html`
           name="Plant"
           placeholder="Plant Name"
         />
-        <label for="datePlanted">Date Planted</label>
+        <label for="datePlanted"><h3>Date Planted</h3></label>
         <input
           type="date"
           id="datePlanted"
@@ -28,14 +28,12 @@ export default state => html`
           name="datePlanted"
           placeholder="When did you plant this seed?"
         />
-        <label for="growthCycle">Growth Cycle</label>
-        <input
-          type="text"
-          id="growthCycle"
-          class="columns"
-          name="growthCycle"
-          placeholder="Annual or Perineal?"
-        />
+        <label for="growthCycle"><h3>Growth Cycle</h3></label>
+        <select id="growthCycle" name="growthCycle">
+          <option value="">Annual or Perineal?</option>
+          <option value="Annual">Annual</option>
+          <option value="Perineal">Perineal</option>
+        </select>
 
         <button class="addPlantSchedule" onclick="">
           <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
