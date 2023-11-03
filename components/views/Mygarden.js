@@ -18,7 +18,7 @@ export default state => html`
     <form id="gardenTracker" method="post">
       <div class="gardenTracker">
         <!-- add button -->
-        <button name="addNewEntry" value="gardenTracker">
+        <button name="addNewEntry" class="addNewEntry" value="gardenTracker">
           <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
         </button>
         <table id="trackerTable">
