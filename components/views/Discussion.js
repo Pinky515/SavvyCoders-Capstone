@@ -17,7 +17,7 @@ export default state => html`
     </div>
     <div id="createPost">
       <!-- new post button opens create new post -->
-      <h1>Create New Post</h1>
+      <h1>Join the Discussion</h1>
 
       <form action="" method="post" class="createPost">
         <div class="postCreator">
@@ -59,8 +59,7 @@ export default state => html`
             type="text"
             name="post"
             id="post"
-            rows="15"
-            cols="40"
+            sixe="50"
             minlength="25"
             maxlength="50000"
             placeholder="What would you like to say?"

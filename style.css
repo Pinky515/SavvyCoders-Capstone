@@ -4,6 +4,8 @@ html {
   width: 100%;
   height: 100%;
   text-align: center;
+  font-family: 'Playfair Display';
+  letter-spacing: 3px;
   background: linear-gradient(
     10deg,
     #f7f7ffff,
@@ -12,6 +14,16 @@ html {
     #279af1ff,
     #32e875ff
   );
+}
+
+input::placeholder {
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+  letter-spacing: 1.5px;
+}
+
+h3 {
+  font-size: 20px;
 }
 
 /* Intro Page */
@@ -63,7 +75,6 @@ img {
   width: 90%;
   margin: 0 auto;
   padding: 5px;
-  font-family: Playfair Display;
   font-size: 2rem;
 }
 
@@ -81,9 +92,8 @@ h2 {
   /* PlayfairDisplay - paste link */
   color: #279af1ff;
   margin-top: 0;
-  font-family: "PlayfairDisplay";
   letter-spacing: 0.5rem;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 footer {
@@ -91,7 +101,6 @@ footer {
   position: relative;
   bottom: 3px;
   text-align: center;
-  font-family: "Times New Roman", Times, serif;
   font-weight: bold;
   letter-spacing: 0.1rem;
   /* margin */
@@ -152,6 +161,12 @@ nav > ul {
 }
 /* Welcome Home Greeting with username*/
 
+#home-pg > h1 {
+  font-size: 35px;
+  letter-spacing: 10px;
+  color: #a64253;
+}
+
 .welcome {
   background-color: #f5f5ffbf;
   border-radius: 10px 40px;
@@ -160,7 +175,13 @@ nav > ul {
   margin-left: auto;
   margin-right: auto;
   box-shadow: 0 0 10px 10px #fff;
+  font-size: 30px;
 }
+
+.weather > h3 {
+  font-size: 22px;
+}
+
 
 /* Schedule */
 
@@ -170,6 +191,10 @@ nav > ul {
   /* padding: 3px; */
   margin: 0 auto;
   width: 60%;
+}
+
+#schedule > h1 {
+  font-size: 32px;
 }
 
 form.addPlantSchedule {
@@ -185,21 +210,26 @@ button.addPlantSchedule {
   display: flex;
   flex-flow: wrap;
   align-content: flex-start;
+  bottom: -35px;
+  position: relative;
 }
 
 .schedule-inputs {
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   display: flex;
   margin: 10px 0;
+  flex-flow: wrap;
 }
 
 .schedule-inputs input, .schedule-inputs select {
   height: 30px;
+  font-size: 20px;
 }
 
-.schedule-inputs h3 {
-  margin: 10px;
+.postContent input {
+  width: 500px;
+  /* height: 100px; */
 }
 
 table {
@@ -213,6 +243,11 @@ td {
   padding: 5px;
   background-color: #a64253ff;
   text-align: left;
+  font-size: 25px;
+}
+
+td {
+  font-family: cursive;
 }
 
 /* Current Weather Img dependent upon the weather
@@ -237,6 +272,9 @@ Current Location
   display: flex;
   justify-content: center;
   margin: 0 10px;
+}
+.input#postSearch {
+  width: 300px;
 }
 
 button.plantSearch {

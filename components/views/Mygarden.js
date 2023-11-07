@@ -6,6 +6,7 @@ function isDisabled(plant) {
 
 export default state => html`
   <div id="myGarden">
+    <h1>My Garden</h1>
     <!-- Username's Garden (user input garden name in header) -->
 
     <!-- <div id="addPlot"> -->
