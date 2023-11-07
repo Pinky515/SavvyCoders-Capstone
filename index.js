@@ -63,30 +63,37 @@ function afterRender(state) {
   if (state.view === "Discussion") {
     // event handler for new post submit button
     let discussionPosts = Array.from(document.getElementsByClassName("createPost"));
-    discussionPosts.addEventListener("click", event => {
-      event.preventDefault();
+    discussionPosts
 
-      const allPosts = store.Discussion.discussionForumPage.allPosts[event.target.dataset.index];;
-      console.log("Retrieved all Posts", allPosts);
 
-      const requestData = {
-        creator: allPosts.creator.value,
-        title: allPosts.title.value,
-        post: allPosts.post.value
-      };
-      console.log("request Body", requestData);
 
-      axios
-        .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
-        .then(response => {
-          // push new post to forum allPosts
-          store.Discussion.discussionForumPage.allPosts.push(response.data);
-          router.navigate("/Discussion");
-        })
-        .catch(error => {
-          console.log("Whoopsie", error);
-        });
-    });
+
+
+
+      .addEventListener("click", event => {
+        event.preventDefault();
+
+        const allPosts = store.Discussion.discussionForumPage.allPosts[event.target.dataset.index];;
+        console.log("Retrieved all Posts", allPosts);
+
+        const requestData = {
+          creator: allPosts.creator.value,
+          title: allPosts.title.value,
+          post: allPosts.post.value
+        };
+        console.log("request Body", requestData);
+
+        axios
+          .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
+          .then(response => {
+            // push new post to forum allPosts
+            store.Discussion.discussionForumPage.allPosts.push(response.data);
+            router.navigate("/Discussion");
+          })
+          .catch(error => {
+            console.log("Whoopsie", error);
+          });
+      });
   }
 }
 

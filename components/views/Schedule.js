@@ -6,11 +6,13 @@ function isDisabled(plant) {
 
 export default state => html`
   <div id="schedule">
+    <h1>Lets Stay on Track<h1>
     <!-- add plant button -->
     <form action="" method="post" class="addPlantSchedule">
       <!-- calendar with visual representation of water/fertilization schedule -->
       <div class="schedule-inputs">
-        <label for="Plant">
+      <div class="plantName">
+      <label for="Plant">
           <h3>Plant</h3>
         </label>
         <input
@@ -20,7 +22,9 @@ export default state => html`
           name="Plant"
           placeholder="Plant Name"
         />
-        <label for="datePlanted"><h3>Date Planted</h3></label>
+      </div>
+      <div class="datePlanted">
+      <label for="datePlanted"><h3>Date Planted</h3></label>
         <input
           type="date"
           id="datePlanted"
@@ -28,16 +32,20 @@ export default state => html`
           name="datePlanted"
           placeholder="When did you plant this seed?"
         />
-        <label for="growthCycle"><h3>Growth Cycle</h3></label>
+      </div>
+      <div class="growthCycle">
+      <label for="growthCycle"><h3>Growth Cycle</h3></label>
         <select id="growthCycle" name="growthCycle">
           <option value="">Annual or Perineal?</option>
           <option value="Annual">Annual</option>
           <option value="Perineal">Perineal</option>
         </select>
-
-        <button class="addPlantSchedule" onclick="">
+      </div>
+      <div class="addPlantScheduleButton">
+      <button class="addPlantSchedule" onclick="">
           <i class="fa-solid fa-circle-plus" style="color: #32e875ff;"></i>
         </button>
+      </div>
       </div>
       <table id="scheduleTable">
         <!-- table of upcoming water/fertilization needs -->
