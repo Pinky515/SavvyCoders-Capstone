@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 // import custom route
-import Carebook from "./routes/carebooks.js";
+import Carebooks from "./routes/carebooks.js";
 import Discussion from "./routes/discussion.js";
 import Mygarden from "./routes/mygarden.js";
 import Schedule from "./routes/schedule.js";
@@ -68,7 +68,7 @@ app.get("/status", (request, response) => {
   response.send(JSON.stringify({ message: "Service is healthy" }));
 });
 
-app.use("/carebooks", Carebook);
+app.use("/carebooks", Carebooks);
 app.use("/discussion", Discussion);
 app.use("/mygarden", Mygarden);
 app.use("/schedule", Schedule);

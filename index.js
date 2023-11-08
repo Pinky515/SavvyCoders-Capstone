@@ -35,7 +35,25 @@ function afterRender(state) {
         axios
           .post(`${process.env.DISCUSSION_POST_API}/carebooks`, responseBody)
           .then(response => {
-            store.Carebook.CareBooks.data.push(response.data);
+            store.Carebook.MyCareBooks.push(response.data);
+            router.navigate("/Carebook");
+          })
+          .catch(error => {
+            console.log("Whoopsie", error);
+          })
+      })
+    })
+
+    Array.from(document.getElementsByClassName("removeCareBook")).forEach(button => {
+      button.addEventListener("click", event => {
+        event.preventDefault();
+
+        axios
+          .delete(`${process.env.DISCUSSION_POST_API}/carebooks/${event.target.dataset.id}`)
+          .then(response => {
+            // remove index from array of MyCarebooks with a splice
+            store.Carebook.MyCareBooks.splice(`${response.index}`, 1);
+            console.log("CareBook Entry deleted", response.index, response);
             router.navigate("/Carebook");
           })
           .catch(error => {
@@ -62,38 +80,31 @@ function afterRender(state) {
 
   if (state.view === "Discussion") {
     // event handler for new post submit button
-    let discussionPosts = Array.from(document.getElementsByClassName("createPost"));
-    discussionPosts
+    Array.from(document.getElementByClassName("createPost")).addEventListener("click", event => {
+      event.preventDefault();
+      console.log(Array);
 
+      const allPosts = store.Discussion.discussionForumPage.allPosts[event.target.dataset.index];
+      console.log("Retrieved all Posts", allPosts);
 
+      const requestData = {
+        creator: allPosts.creator.value,
+        title: allPosts.title.value,
+        post: allPosts.post.value
+      };
+      console.log("request Body", requestData);
 
-
-
-
-      .addEventListener("click", event => {
-        event.preventDefault();
-
-        const allPosts = store.Discussion.discussionForumPage.allPosts[event.target.dataset.index];;
-        console.log("Retrieved all Posts", allPosts);
-
-        const requestData = {
-          creator: allPosts.creator.value,
-          title: allPosts.title.value,
-          post: allPosts.post.value
-        };
-        console.log("request Body", requestData);
-
-        axios
-          .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
-          .then(response => {
-            // push new post to forum allPosts
-            store.Discussion.discussionForumPage.allPosts.push(response.data);
-            router.navigate("/Discussion");
-          })
-          .catch(error => {
-            console.log("Whoopsie", error);
-          });
-      });
+      axios
+        .post(`${process.env.DISCUSSION_POST_API}/discussion`, requestData)
+        .then(response => {
+          // push new post to forum allPosts
+          store.Discussion.discussionForumPage.allPosts.push(response.data);
+          router.navigate("/Discussion");
+        })
+        .catch(error => {
+          console.log("Whoopsie", error);
+        });
+    });
   }
 }
 
@@ -159,29 +170,30 @@ router.hooks({
         break;
       // Add a case for each view that needs data from an API
       case "Carebook":
+        // call the saved carebooks at startup
+        let requests = [axios.get(`${process.env.DISCUSSION_POST_API}/carebooks`)];
+
         // New Axios get request utilizing already made environment variable
         if (params?.params?.plantSearch) {
-          axios
+          const careBooksRequest = axios
             .get(
               `https://perenual.com/api/species-list?key=${process.env.PERENUAL_API_KEY}&q=${params.params.plantSearch}` //need to search for plants through an input
-            )
-            .then(response => {
-              console.log("response", response);
-              // create object to be stored
-              // store.Carebook.CareBooks = {
-              //   common_name: response.data.common_name,
-              //   scientific_name: response.data.scientific_name,
-              //   cycle: response.data.cycle,
-              //   waterFrequency: response.data.watering,
-              //   sunLight: response.data.sunlight,
-              //   image: response.data.default_image
-              store.Carebook.CareBooks = response.data;
-              console.log(store);
-              done();
-            });
-        } else {
-          done();
+            );
+          requests.push(careBooksRequest);
         }
+        // make sure all requests (saved carebooks AND search criteria) are populated before continuing
+        Promise.allSettled(requests)
+          .then(responses => {
+            console.log("response", responses);
+            const [myCareBooksResponse, careBooksResponse] = responses;
+            store.Carebook.MyCareBooks = myCareBooksResponse.value.data;
+            if (careBooksResponse) {
+              store.Carebook.CareBooks = careBooksResponse.value.data;
+            }
+            console.log(store);
+            done();
+          });
+
         break;
       case "Schedule":
         try {
@@ -196,13 +208,31 @@ router.hooks({
         done();
         break;
       case "Discussion":
+        // call existing posts at startup
+        let posts = [axios.get(`${process.env.DISCUSSION_POST_API}/discussion`)];
+
+        if (params?.params?.postSearch) {
+          const discussionPostSearch = axios.get(`${process.env.DISCUSSION_POST_API}/discussion?${params?.params?.postSearch}`);
+          function postSearch(posts, discussionPostSearch) {
+            return posts.filter((searchContent => searchContent.toLowerCase().includes(discussionPostSearch).toLowerCase()));
+          }
+          postSearch();
+        }
         await axios
-          .get(`${process.env.DISCUSSION_POST_API}/discussion`)
+          .get(posts);
+        store.Discussion.discussionForumPage.searchContent.push(postSearch());
+        // make sure all requests (saved carebooks AND search criteria) are populated before continuing
+        Promise.allSettled(posts)
           .then(response => {
             // store response to state
             console.log("response", response);
-            store.Discussion.DiscussionPosts = response.data;
+            const [allPostsResponse] = response;
+
+            if (allPostsResponse) {
+              store.Discussion.discussionForumPage.allPosts = allPostsResponse.value.data;
+            }
             done();
+
           })
           .catch(error => {
             console.log("Whoopsie", error);

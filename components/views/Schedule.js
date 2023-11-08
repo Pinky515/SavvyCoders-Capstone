@@ -36,9 +36,9 @@ export default state => html`
       <div class="growthCycle">
       <label for="growthCycle"><h3>Growth Cycle</h3></label>
         <select id="growthCycle" name="growthCycle">
-          <option value="">Annual or Perineal?</option>
+          <option value="">Annual or Perennial?</option>
           <option value="Annual">Annual</option>
-          <option value="Perineal">Perineal</option>
+          <option value="Perennial">Perennial</option>
         </select>
       </div>
       <div class="addPlantScheduleButton">

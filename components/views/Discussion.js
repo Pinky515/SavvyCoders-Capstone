@@ -13,6 +13,7 @@ export default state => html`
         <button class="postSearch">
           <i class="fa-solid fa-magnifying-glass" style="color: #d76a03ff;"></i>
         </button>
+        <div class="searchContent"></div>
       </div>
     </div>
     <div id="createPost">
@@ -59,14 +60,14 @@ export default state => html`
             type="text"
             name="post"
             id="post"
-            sixe="50"
+            size="50"
             minlength="25"
             maxlength="50000"
             placeholder="What would you like to say?"
             required
           />
 
-          <button name="createPost" value="createPost">
+          <button name="createPost" class="createPost" value="createPost">
             <i
               class="fa-regular fa-paper-plane fa-xl createPost"
               style="color: #279af1ff;"

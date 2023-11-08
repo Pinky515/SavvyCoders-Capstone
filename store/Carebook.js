@@ -4,5 +4,6 @@ export default {
   view: "Carebook",
   CareBooks: {
     data: []
-  }
+  },
+  MyCareBooks: []
 };
