@@ -4,11 +4,14 @@ function isDisabled(plant) {
   return "disabled";
 }
 
-function isVisible(table) {
-  // grab stored table data.
-  // if data === 0, hide table
-  // if data > 0 show table
-}
+// function isVisible(table) {
+//   // grab stored table data.
+//   const myCareBooksTable = document.querySelector(div.storedCareBooks);
+//   console.log(myCareBooksTable);
+//   // if data === 0, hide table
+//   // if data > 0 show table
+// }
+// isVisible();
 
 export default state => html`
   <div id="search">
@@ -92,7 +95,7 @@ export default state => html`
     </tr>
   </thead>
   <tbody>
-  ${state.CareBooks.data.map((plant, index) => {
+  ${state.MyCareBooks.map((plant, index) => {
   return html`
       <tr>
         <td>${index + 1}</td>
@@ -100,7 +103,7 @@ export default state => html`
         <td>${plant.cycle}</td>
         <td>${plant.watering}</td>
         <td>${plant.sunlight}</td>
-        <td><img src="${plant.default_image.original_url}" /></td>
+        <td><img src="${plant?.default_image?.original_url}" /></td>
         <td>${plant.other_name}</td>
         <td>
           <button name="removeCareBook" value="removeCareBook">
@@ -108,6 +111,7 @@ export default state => html`
               class="fa-regular fa-trash-can  fa-xl removeCareBook"
               style="color: #279af1ff;"
               data-index="${index}"
+              data-id="${plant._id}"
             ></i>
           </button>
         </td>
