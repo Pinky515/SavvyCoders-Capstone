@@ -32,12 +32,10 @@ db.once(
 
 const PORT = process.env.PORT || 4040;
 
-const dateLocal = function getTheDate(request, response, next) {
-  let logging = `${request.method} ${request.url}`;
-  console.log(logging);
-  // internal js code for date and time
-  let dateLocal = `${new Date().toLocaleString("en-us")}`;
-  console.log(dateLocal);
+const logging = (request, response, next) => {
+  console.log(
+    `${request.method} ${request.url} ${new Date().toLocaleString("en-us")}`
+  );
   next();
 };
 
@@ -58,7 +56,7 @@ const cors = (req, res, next) => {
 
 app.use(cors);
 app.use(express.json());
-app.use(dateLocal);
+app.use(logging);
 
 // Handle the request with HTTP GET method from http://localhost:4040/status
 app.get("/status", (request, response) => {
