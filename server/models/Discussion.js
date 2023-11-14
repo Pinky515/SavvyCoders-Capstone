@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 
 // Schema
 const discussionPostSchema = new mongoose.Schema({
-  user: {
+  creator: {
     type: String,
     required: true,
     validate: /^[A-Za-z0-9 ]*$/
   },
-  post: {
+  content: {
     type: String,
     required: true
   },
