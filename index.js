@@ -90,7 +90,7 @@ function afterRender(state) {
       const requestData = {
         creator: allPosts.creator.value,
         title: allPosts.title.value,
-        post: allPosts.post.value
+        post: allPosts.content.value
       };
       console.log("request Body", requestData);
 
@@ -209,18 +209,14 @@ router.hooks({
         break;
       case "Discussion":
         // call existing posts at startup
-        let posts = [axios.get(`${process.env.DISCUSSION_POST_API}/discussion`)];
-
         await axios
-          .get(posts)
+          .get(`${process.env.DISCUSSION_POST_API}/discussion`)
           .then(response => {
             // store response to state
             console.log("response", response);
-            const [allPostsResponse] = response;
 
-            if (allPostsResponse) {
-              store.Discussion.discussionForumPage.allPosts = allPostsResponse.value.data;
-            }
+            store.Discussion.discussionForumPage.allPosts = response.data;
+
             done();
 
           })
