@@ -211,18 +211,8 @@ router.hooks({
         // call existing posts at startup
         let posts = [axios.get(`${process.env.DISCUSSION_POST_API}/discussion`)];
 
-        if (params?.params?.postSearch) {
-          const discussionPostSearch = axios.get(`${process.env.DISCUSSION_POST_API}/discussion?${params?.params?.postSearch}`);
-          function postSearch(posts, discussionPostSearch) {
-            return posts.filter((searchContent => searchContent.toLowerCase().includes(discussionPostSearch).toLowerCase()));
-          }
-          postSearch();
-        }
         await axios
-          .get(posts);
-        store.Discussion.discussionForumPage.searchContent.push(postSearch());
-        // make sure all requests (saved carebooks AND search criteria) are populated before continuing
-        Promise.allSettled(posts)
+          .get(posts)
           .then(response => {
             // store response to state
             console.log("response", response);
